@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "hG9G5b882GI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\SpotifyApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dupor\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\dupor\\.nuget\\packages\\spotifyapi.web\\7.2.1\\spotifyapi.web.7.2.1.nupkg.sha512"
+  ],
+  "logs": []
+}
