@@ -13,8 +13,8 @@ public class ConnectSpotify : IConnectSpotify
         return _authspotify.GetSpotifyAuth();
     }
 
-    public Task<string> CallBack(string code){
+    public void CallBack(string code){
         Task<string> token = _authspotify.GetAccessTokenAsync(code);
-        return _authspotify.GetUserProfileAsync(token.Result);
+        _authspotify.GetUserProfileAsync(token.Result);
     }
 }

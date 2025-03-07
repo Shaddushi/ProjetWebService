@@ -1,21 +1,26 @@
 namespace SpotifyApi.AuthSpotify;
-using Entities.TokenData;
+using Entities.SpotifyEntities.TokenData;
+using Entities.SpotifyEntities.UserProfile;
 using Core.SpotifyApi;
 using System.Text.Json;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Session;
+using Newtonsoft.Json;
 public class AuthSpotify : IAuthSpotify {
 
     private readonly HttpClient _httpClient;
     private readonly string _clientID = "284cb1c04d27446ab68177356bc421e0";
     private readonly string _clientSecret = "1ce38611be1f444f9110b8dec5e61f7f";
     private readonly string _redirectUri = "http://localhost:5164/ConnectSpotify/Callback";
-    
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AuthSpotify(HttpClient httpClient)
+
+    public AuthSpotify(HttpClient httpClient,IHttpContextAccessor httpContextAccessor)
     {
         _httpClient = httpClient;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     // Renvoie vers la page de connexion spotify
@@ -38,20 +43,22 @@ public class AuthSpotify : IAuthSpotify {
         };
 
         var responseContent = await _httpClient.PostAsync("https://accounts.spotify.com/api/token", new FormUrlEncodedContent(parameters)).Result.Content.ReadAsStringAsync();
-        var response = JsonSerializer.Deserialize<TokenData>(responseContent);
+        var response = System.Text.Json.JsonSerializer.Deserialize<TokenData>(responseContent);
         return response.AccessToken;
         }   
 
-    //Récupère le Profil
-    public async Task<string> GetUserProfileAsync(string accessToken)
+    //Récupère le Profil dans la session
+    public async void GetUserProfileAsync(string accessToken)
     {
        
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-        var responseContent = await _httpClient.GetAsync("https://api.spotify.com/v1/me").Result.Content.ReadAsStringAsync();
-         Console.WriteLine(responseContent);
-        return responseContent;
         
+        var responseContent = await _httpClient.GetAsync("https://api.spotify.com/v1/me").Result.Content.ReadAsStringAsync();
+        var response = System.Text.Json.JsonSerializer.Deserialize<UserProfile>(responseContent);
+
+        var httpContext = _httpContextAccessor.HttpContext;
+        httpContext.Session.SetString("Profile",JsonConvert.SerializeObject(response));
+
     }
 
     public string GetSpotifyAuth(){

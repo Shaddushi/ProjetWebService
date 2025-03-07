@@ -1,4 +1,4 @@
-namespace Entities.TokenData;
+namespace Entities.SpotifyEntities.TokenData;
 using System.Text.Json.Serialization;
 public class TokenData
 {
