@@ -11,9 +11,16 @@ const display_name = ref();
 
 onMounted(() => {
   axios.get("http://localhost:5164/ConnectSpotify/IsConnected",{withCredentials : true}).then((response) => {
+            console.log(response.data)
+
             if(response.data == ""){
+              
               ConnectUserToSpotify()
 
+            }
+            else{
+              display_name.value = response.data.display_name;
+              images.value = response.data.images[1].url;
             }
             }).catch((error)=>{ console.log(error)})
 
