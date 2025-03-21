@@ -8,19 +8,19 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\dupor\\.nuget\\packages\\": {}
+    "C:\\Users\\Windows\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Repositories\\Repositories.csproj",
+      "projectUniqueName": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Repositories\\Repositories.csproj",
       "projectName": "Repositories",
-      "projectPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Repositories\\Repositories.csproj",
-      "packagesPath": "C:\\Users\\dupor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Repositories\\obj\\",
+      "projectPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Repositories\\Repositories.csproj",
+      "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Repositories\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\dupor\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Windows\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"

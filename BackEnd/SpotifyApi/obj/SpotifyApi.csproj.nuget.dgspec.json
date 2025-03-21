@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\SpotifyApi.csproj": {}
+    "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\SpotifyApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj": {
+    "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\dupor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\obj\\",
+        "projectPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dupor\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Windows\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -63,17 +63,17 @@
         }
       }
     },
-    "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj": {
+    "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj",
-        "packagesPath": "C:\\Users\\dupor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\obj\\",
+        "projectPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj",
+        "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dupor\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Windows\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -122,17 +122,17 @@
         }
       }
     },
-    "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\SpotifyApi.csproj": {
+    "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\SpotifyApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\SpotifyApi.csproj",
+        "projectUniqueName": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\SpotifyApi.csproj",
         "projectName": "SpotifyApi",
-        "projectPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\SpotifyApi.csproj",
-        "packagesPath": "C:\\Users\\dupor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\obj\\",
+        "projectPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\SpotifyApi.csproj",
+        "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\SpotifyApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dupor\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Windows\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -144,11 +144,11 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj"
+              "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Core\\Core.csproj"
               },
-              "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj"
+              "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj"
               }
             }
           }

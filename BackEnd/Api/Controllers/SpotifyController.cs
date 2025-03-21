@@ -34,7 +34,7 @@ public class ConnectSpotify : ControllerBase
         
         _iconnectspotify.CallBack(code);
         
-        return Redirect("http://localhost:5173/");
+        return Redirect("http://localhost:5173/profile");
     }
 
     [HttpGet("IsConnected")]

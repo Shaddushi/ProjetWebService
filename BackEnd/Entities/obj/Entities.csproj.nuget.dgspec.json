@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj": {}
+    "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj": {
+    "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj",
-        "packagesPath": "C:\\Users\\dupor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dupor\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\obj\\",
+        "projectPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\Entities.csproj",
+        "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Windows\\Documents\\Projet_Cours\\ProjetWebService\\BackEnd\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dupor\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Windows\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"

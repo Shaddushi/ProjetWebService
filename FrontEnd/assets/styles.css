@@ -3,3 +3,10 @@
     font-family: "Font";
     src: url('./fonts/circular-black.ttf');
 }
+
+
+:root {
+    --Primary-color: #212121;
+    --Secondary-color: #1db954;
+    --Tertiary-color: #535353;
+}

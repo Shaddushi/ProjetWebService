@@ -58,7 +58,6 @@ public class AuthSpotify : IAuthSpotify {
 
         var httpContext = _httpContextAccessor.HttpContext;
         httpContext.Session.SetString("Profile",JsonConvert.SerializeObject(response));
-
     }
 
     public string GetSpotifyAuth(){
