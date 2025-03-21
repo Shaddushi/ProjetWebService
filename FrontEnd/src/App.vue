@@ -40,9 +40,7 @@ function ConnectUserToSpotify(){
 <template>
     <Header :images="images" :display_name="display_name"></Header>
     <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-      </nav>
+      <router-view />
     </div>
 
 </template>
