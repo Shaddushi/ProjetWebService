@@ -9,4 +9,5 @@
     --Primary-color: #212121;
     --Secondary-color: #1db954;
     --Tertiary-color: #535353;
+    overflow-x: hidden;
 }
