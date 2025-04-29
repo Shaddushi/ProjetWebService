@@ -1,4 +1,4 @@
-namespace Core.SpotifyApi;
+namespace Core.SpotifyApi.IAuthSpotify;
 
 public interface IAuthSpotify{
     public string GetSpotifyAuth();

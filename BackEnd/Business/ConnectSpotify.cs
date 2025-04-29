@@ -1,10 +1,13 @@
 ﻿namespace Business;
 using Core.Services;
-using Core.SpotifyApi;
+using Core.SpotifyApi.IAuthSpotify;
+using Core.SpotifyApi.IInputSpotify;
+using Entities.SpotifyEntities.Track;
 
 public class ConnectSpotify : IConnectSpotify
 {
     private readonly IAuthSpotify _authspotify;
+    private readonly IInputSpotify _inputspotify;
     
     public ConnectSpotify(IAuthSpotify s){
         _authspotify = s;
@@ -16,5 +19,10 @@ public class ConnectSpotify : IConnectSpotify
     public void CallBack(string code){
         Task<string> token = _authspotify.GetAccessTokenAsync(code);
         _authspotify.GetUserProfileAsync(token.Result);
+    }
+
+    async public Task<List<Track>> GetTracks(string q){
+        var response = await _inputspotify.GetTracksResponse(q);
+        return response.Tracks.Items;
     }
 }

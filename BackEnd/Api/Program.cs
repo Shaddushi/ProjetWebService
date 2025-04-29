@@ -1,7 +1,7 @@
 using Business;
 using SpotifyApi.AuthSpotify;
 using Core.Services;
-using Core.SpotifyApi;
+using Core.SpotifyApi.IAuthSpotify;
 
 var builder = WebApplication.CreateBuilder(args);
 

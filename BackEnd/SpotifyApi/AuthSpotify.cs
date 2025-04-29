@@ -1,13 +1,10 @@
 namespace SpotifyApi.AuthSpotify;
 using Entities.SpotifyEntities.TokenData;
 using Entities.SpotifyEntities.UserProfile;
-using Core.SpotifyApi;
-using System.Text.Json;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
+using Core.SpotifyApi.IAuthSpotify;
 public class AuthSpotify : IAuthSpotify {
 
     private readonly HttpClient _httpClient;

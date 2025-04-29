@@ -1,10 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Core.Services;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
 using Entities.SpotifyEntities.UserProfile;
 namespace Api.Controllers;
@@ -49,4 +44,11 @@ public class ConnectSpotify : ControllerBase
         return Ok(Profile);
     }
     
+    [HttpGet("SearchSongs")]
+    public IActionResult SearchSongs([FromQuery] string q)
+    {
+        var Tracks = _iconnectspotify.GetTracks(q);
+        return Ok(Tracks);
+    }
+
 }
