@@ -21,8 +21,8 @@ public class ConnectSpotify : IConnectSpotify
         _authspotify.GetUserProfileAsync(token.Result);
     }
 
-    async public Task<List<Track>> GetTracks(string q){
+    async public Task<SpotifyTracksResponse> GetTracks(string q){
         var response = await _inputspotify.GetTracksResponse(q);
-        return response.Tracks.Items;
+        return response;
     }
 }
