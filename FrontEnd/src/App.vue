@@ -21,6 +21,9 @@ onMounted(() => {
             else{
               display_name.value = response.data.display_name;
               images.value = response.data.images[1].url;
+              if(images.value == null){
+                images.value = "../assets/img/default_profile.png";
+              }
             }
             }).catch((error)=>{ console.log(error)})
 

@@ -2,9 +2,16 @@
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 
+import { createRouter, createWebHistory } from 'vue-router';
+
+
+
+
 const tracksActivated = ref(false);
 const albumsActivated = ref(false);
 const artistsActivated = ref(false);
+
+
 const router = useRouter();
 
 

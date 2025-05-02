@@ -4,6 +4,11 @@ const router = createRouter({
   routes: [
     { path: '/', 
       redirect: '/profile',
+    },
+    {
+      path: '/tracks',
+      name: 'Tracks', 
+      component: () => import('@/components/views/TrackView.vue')
     }
   ],
 })
