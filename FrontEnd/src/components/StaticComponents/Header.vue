@@ -2,10 +2,17 @@
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 
-import { createRouter, createWebHistory } from 'vue-router';
 
 
-
+const props = defineProps({
+        display_name: {
+            String
+        },
+        images: {
+            String
+        },
+        
+    })
 
 const tracksActivated = ref(false);
 const albumsActivated = ref(false);
@@ -48,15 +55,7 @@ const changePage = (path) => {
 };
 
 
-const props = defineProps({
-        display_name: {
-            String
-        },
-        images: {
-            String
-        },
-        
-    })
+
 </script>
 
 
@@ -77,7 +76,7 @@ const props = defineProps({
 </template>
 
 
-<style>
+<style scoped>
 
 #Header{
     display: flex; 
@@ -145,6 +144,7 @@ const props = defineProps({
         border: none;
         font-family: 'Font', sans-serif;
         font-size:medium;
+        cursor: pointer;
     }
 
         #Header_Name{
@@ -156,9 +156,11 @@ const props = defineProps({
         }
 
         #Header_Img{
-            border-radius: 500px;
+            border-radius: 50%;
             margin-left: 20px;
             margin-right: 20px;
+            height: 64px;
+            width: 64px;
         }
 
 

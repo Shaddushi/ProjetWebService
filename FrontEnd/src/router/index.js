@@ -9,6 +9,21 @@ const router = createRouter({
       path: '/tracks',
       name: 'Tracks', 
       component: () => import('@/components/views/TrackView.vue')
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: () => import('@/components/views/ProfileView.vue')
+    },
+    {
+      path: '/artists',
+      name: 'Artist',
+      component: () => import('@/components/views/ArtistView.vue')
+    },
+    {
+      path: '/albums',
+      name: 'Album',
+      component: () => import('@/components/views/AlbumView.vue')
     }
   ],
 })

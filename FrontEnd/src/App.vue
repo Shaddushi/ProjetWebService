@@ -5,9 +5,9 @@ import { onMounted } from 'vue';
 import { ref } from 'vue';
 import axios from 'axios';
 
-const images = ref();
+const images = ref("../assets/img/defaultpic.png");
 const display_name = ref();
-
+const profileData = ref({});
 
 onMounted(() => {
   axios.get("http://localhost:5164/ConnectSpotify/IsConnected",{withCredentials : true}).then((response) => {
@@ -19,10 +19,10 @@ onMounted(() => {
 
             }
             else{
+              profileData.value = response.data;
               display_name.value = response.data.display_name;
-              images.value = response.data.images[1].url;
-              if(images.value == null){
-                images.value = "../assets/img/default_profile.png";
+              if(response.data.images.length > 0){
+                images.value = response.data.images[0].url;
               }
             }
             }).catch((error)=>{ console.log(error)})
@@ -43,7 +43,19 @@ function ConnectUserToSpotify(){
 <template>
     <Header :images="images" :display_name="display_name"></Header>
     <div class="wrapper">
-      <router-view />
+      <router-view v-slot="{ Component, route }">
+
+        <!-- Pass props to the component if it needs it -->
+        <component 
+          :is="Component" 
+          v-if="route.path === '/profile'" 
+          :profileData="profileData" 
+        />
+        <component 
+          :is="Component" 
+          v-else 
+        />
+      </router-view>
     </div>
 
 </template>

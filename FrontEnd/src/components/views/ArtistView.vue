@@ -10,7 +10,7 @@ function GetSongsByName(){
         alert("Please enter a search term.");
     }
     else{
-        axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value,
+        axios.get("http://localhost:5164/ConnectSpotify/SearchArtist?q=" + search.value,
         {withCredentials : true}
          ).then((response) => {
             console.log(response.data);
@@ -32,17 +32,17 @@ function GetSongsByName(){
     <div>
         <div id="searchBar">
             <div id="SearchInputRegrouped">
-                <input type="text" placeholder="Search for tracks..." id="SearchInput" v-model="search" @keyup.enter="GetSongsByName()" autocomplete="off">
+                <input type="text" placeholder="Search for artists..." id="SearchInput" v-model="search" @keyup.enter="GetSongsByName()" autocomplete="off">
                 <button id="searchButton"><img src="../../../assets/img/loupe.png" @click="GetSongsByName()"></button>
             </div>
         </div>
 
         <div id="searchResults" class="Font">
-            <div v-for="track in tracks" class="trackResult">
-                <img :src="track.image" class="trackImage"/>
-                <div class="trackInfo">
-                    <div class="trackName">{{ track.name }}</div>
-                    <div class="trackArtist">{{ track.artist }}</div>
+            <div v-for="artist in artists" class="artistResult">
+                <img :src="artist.image" class="artistImage"/>
+                <div class="artistInfo">
+                    <div class="artistName">{{ artist.name }}</div>
+                    <div class="artistArtist">{{ artist.artist }}</div>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@ function GetSongsByName(){
 
 
 
-<style>
+<style scoped>
 
 #searchBar {
     display: flex;
