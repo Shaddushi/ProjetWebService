@@ -45,9 +45,9 @@ public class ConnectSpotify : ControllerBase
     }
     
     [HttpGet("SearchSongs")]
-    public IActionResult SearchSongs([FromQuery] string q)
+    public IActionResult SearchSongs([FromQuery] string q, string offset)
     {
-        var Tracks = _iconnectspotify.GetTracks(q);
+        var Tracks = _iconnectspotify.GetTracks(q, offset);
         return Ok(Tracks);
     }
 

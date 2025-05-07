@@ -5,6 +5,7 @@ import axios from 'axios';
 import TrackItem from '../ui/TrackItem.vue';
 const search = ref("");
 const tracks = ref([]);
+const offset = ref("");
 
 
 function GetSongsByName(){
@@ -12,7 +13,7 @@ function GetSongsByName(){
         alert("Please enter a search term.");
     }
     else{
-        axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value // a rajouté ici robin, faut surement faire un nomduparam= et tu mets genre 0
+        axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value + "/&offset=" + 0
         ,{withCredentials : true}
          ).then((response) => {
             tracks.value = response.data.result.tracks.items;

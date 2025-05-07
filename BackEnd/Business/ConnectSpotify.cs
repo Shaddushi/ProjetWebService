@@ -23,8 +23,8 @@ public class ConnectSpotify : IConnectSpotify
         _authspotify.GetUserProfileAsync(token.Result);
     }
 
-    async public Task<SpotifyTracksResponse> GetTracks(string q){
-        var response = await _inputspotify.GetTracksResponse(q);
+    async public Task<SpotifyTracksResponse> GetTracks(string q, string offset){
+        var response = await _inputspotify.GetTracksResponse(q, offset);
         return response;
     }
 }

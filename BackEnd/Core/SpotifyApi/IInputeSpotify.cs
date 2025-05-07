@@ -4,5 +4,5 @@ namespace Core.SpotifyApi.IInputSpotify;
 
 public interface IInputSpotify{
 
-    public Task<SpotifyTracksResponse> GetTracksResponse(string q);
+    public Task<SpotifyTracksResponse> GetTracksResponse(string q, string offset);
 }

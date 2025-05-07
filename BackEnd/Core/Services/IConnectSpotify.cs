@@ -6,6 +6,6 @@ public interface IConnectSpotify{
 
     public void CallBack(string code);
 
-    public Task<SpotifyTracksResponse> GetTracks(string q);
+    public Task<SpotifyTracksResponse> GetTracks(string q, string offset);
     
 }
