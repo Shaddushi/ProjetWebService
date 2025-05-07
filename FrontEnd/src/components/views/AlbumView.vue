@@ -87,7 +87,7 @@ function GetSongsByName(){
 }
 
 #SearchInput::placeholder {
-    color: var(--Primary-color);
+    
     font-family: 'Font', sans-serif;
     
     font-size: large;

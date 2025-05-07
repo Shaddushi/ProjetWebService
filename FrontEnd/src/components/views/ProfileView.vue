@@ -34,7 +34,7 @@ onMounted(() => {
 </template>
 
 
-<style>
+<style scoped>
 
 :root {
     --Profile-color: #535353;

@@ -2,18 +2,20 @@
 
 import { ref } from 'vue';
 import axios from 'axios';
-
+import TrackItem from '../ui/TrackItem.vue';
 const search = ref("");
+const tracks = ref([]);
+
 
 function GetSongsByName(){
     if(search.value == ""){
         alert("Please enter a search term.");
     }
     else{
-        axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value,
-        {withCredentials : true}
+        axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value // a rajouté ici robin, faut surement faire un nomduparam= et tu mets genre 0
+        ,{withCredentials : true}
          ).then((response) => {
-            console.log(response.data);
+            tracks.value = response.data.result.tracks.items;
         }).catch((error)=>{
               console.log(error)
             })
@@ -39,11 +41,7 @@ function GetSongsByName(){
 
         <div id="searchResults" class="Font">
             <div v-for="track in tracks" class="trackResult">
-                <img :src="track.image" class="trackImage"/>
-                <div class="trackInfo">
-                    <div class="trackName">{{ track.name }}</div>
-                    <div class="trackArtist">{{ track.artist }}</div>
-                </div>
+                <TrackItem :track="track" />
             </div>
         </div>
     </div>
@@ -51,7 +49,7 @@ function GetSongsByName(){
 
 
 
-<style>
+<style scoped>
 
 #searchBar {
     display: flex;
@@ -87,7 +85,7 @@ function GetSongsByName(){
 }
 
 #SearchInput::placeholder {
-    color: var(--Primary-color);
+    color: var(--Secondary-color);
     font-family: 'Font', sans-serif;
     
     font-size: large;
