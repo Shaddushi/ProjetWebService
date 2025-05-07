@@ -15,7 +15,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IConnectSpotify,ConnectSpotify>();
 builder.Services.AddScoped<IAuthSpotify,AuthSpotify>();
 builder.Services.AddScoped<IInputSpotify,InputSpotify>();
-builder.Services.AddScoped<HttpClient>();
+builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
    //  Cors

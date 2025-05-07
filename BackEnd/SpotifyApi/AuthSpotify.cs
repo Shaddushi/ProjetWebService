@@ -42,7 +42,7 @@ public class AuthSpotify : IAuthSpotify {
         var responseContent = await _httpClient.PostAsync("https://accounts.spotify.com/api/token", new FormUrlEncodedContent(parameters)).Result.Content.ReadAsStringAsync();
         var response = System.Text.Json.JsonSerializer.Deserialize<TokenData>(responseContent);
         var httpContext = _httpContextAccessor.HttpContext;
-        httpContext.Session.SetString("AcessToken",JsonConvert.SerializeObject(response));
+        httpContext.Session.SetString("AccessToken",JsonConvert.SerializeObject(response));
         return response.AccessToken;
         }   
 
