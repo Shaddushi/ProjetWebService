@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from 'vue';
-
+import { useRouter } from 'vue-router';
 const props = defineProps({
         track: {
             type: Object,
@@ -8,30 +8,34 @@ const props = defineProps({
         }
     })
 
+const router = useRouter();
 
+const changePage = (path) => {
+    router.push(path);
+};
 
 </script>
 
 
 <template>
     <div class="trackItem">
-        <img :src="props.track.album.images[0].url" class="trackImage"/>
+        <img @click="changePage('track/' + props.track.id)" :src="props.track.album.images[0].url" class="trackImage"/>
         <div class="trackInfo">
-            <div class="trackName">{{ props.track.name.substring(0, 20)}}
+            <div @click="changePage('track/' + props.track.id)" class="trackName">{{ props.track.name.substring(0, 20)}}
                 <span v-if="props.track.name.length > 20">...</span>
             </div>
 
-            <div v-if="props.track.artists.length > 1" class="trackArtist">        
+            <div @click="changePage('artist/' + props.track.artists[0].id)" v-if="props.track.artists.length > 1" class="trackArtist">        
                 {{ props.track.artists[0].name }} + {{ props.track.artists.length - 1 }} more
             </div>
-            <div v-else class="trackArtist">
+            <div @click="changePage('artist/' + props.track.artists[0].id)" v-else class="trackArtist">
                 {{ props.track.artists[0].name }}
 
             </div>
            
         </div>
-        
-        <div class="trackAlbum">
+    
+        <div @click="changePage('album/' + props.track.album.id)" class="trackAlbum">
                 {{ props.track.album.name.substring(0, 20)}}
                 <span v-if="props.track.album.name.length > 20">...</span>
         </div>
