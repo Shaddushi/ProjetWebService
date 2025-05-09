@@ -80,7 +80,7 @@ const changePage = (path) => {
 
 #Header{
     display: flex; 
-    background-color: var(--Primary-color);
+    background-color: var(--Tertiary-color);
     padding: 20px; 
     font-family: 'Font', sans-serif;
     width: 100%;

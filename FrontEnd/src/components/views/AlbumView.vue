@@ -90,6 +90,7 @@ function GetSongsByName(){
     
     font-family: 'Font', sans-serif;
     
+    color: var(--Secondary-color);
     font-size: large;
 }
 

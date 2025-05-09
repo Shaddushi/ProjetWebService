@@ -8,6 +8,11 @@
 :root {
     --Primary-color: #212121;
     --Secondary-color: #1db954;
-    --Tertiary-color: #535353;
+    --Tertiary-color: #121212;
+    --Quaternary-color: #535353;
     overflow-x: hidden;
+}
+
+div {
+    font-family: "Font", sans-serif;
 }

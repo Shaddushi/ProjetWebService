@@ -5,7 +5,7 @@ import axios from 'axios';
 import TrackItem from '../ui/TrackItem.vue';
 const search = ref("");
 const tracks = ref([]);
-const offset = ref("");
+const offset = ref(0);
 
 
 function GetSongsByName(){
@@ -17,10 +17,24 @@ function GetSongsByName(){
         ,{withCredentials : true}
          ).then((response) => {
             tracks.value = response.data.result.tracks.items;
+            console.log(tracks.value);
+            offset.value += tracks.value.length;
         }).catch((error)=>{
               console.log(error)
             })
     }
+    }
+
+function loadMoreSong(){
+        axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value + "/&offset=" + offset.value
+        ,{withCredentials : true}
+         ).then((response) => {
+            tracks.value = [...tracks.value, ...response.data.result.tracks.items];
+            console.log(tracks.value);
+            offset.value += response.data.result.tracks.items.length;
+        }).catch((error)=>{
+              console.log(error)
+            })
     }
     
 
@@ -45,6 +59,10 @@ function GetSongsByName(){
                 <TrackItem :track="track" />
             </div>
         </div>
+        <div v-if="offset>0 && tracks.length >= 0" id="loadMoreButtonDiv" class="Font">
+            <button  @click="loadMoreSong()" id="loadMoreButton">Load more</button>
+        </div>
+
     </div>
 </template>
 
@@ -80,19 +98,16 @@ function GetSongsByName(){
     width: 500px;
     border: 2px solid var(--Secondary-color) ;
     border-radius: 1000px;
-    background: rgb(105, 102, 102);
+    background: var(--Quaternary-color);
     font-size: 16px;
     margin-bottom: 10px;
 }
 
 #SearchInput::placeholder {
-    color: var(--Secondary-color);
     font-family: 'Font', sans-serif;
     
     font-size: large;
 }
-
-
 
 #SearchInput:focus{
     outline: none;
@@ -105,7 +120,6 @@ function GetSongsByName(){
     
     
 }
-
 
 #searchButton {
     background: none;
@@ -120,6 +134,55 @@ function GetSongsByName(){
     height: 40%;
     margin-top: 8px;
     margin-left: 28%;
+}
+
+#searchResults {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+    gap: 1rem;
+
+    width: 96%;
+    margin-top: 40px;
+    margin-left: 2%;
+    margin-right: 2%;
+
+}
+
+
+
+#loadMoreButton{
+    font-family: 'Font', sans-serif;
+    background: var(--Secondary-color);
+    border: none;
+    color: var(--Quaternary-color);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#loadMoreButtonDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+    #searchResults {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+    .trackResult {
+        min-width: 100%;
+        max-height: 100%;
+    }
+    
 }
 
 </style>
