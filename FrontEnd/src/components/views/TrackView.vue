@@ -8,6 +8,8 @@ const tracks = ref([]);
 const offset = ref(0);
 
 
+
+// get the songs from the API from a search
 function GetSongsByName(){
     if(search.value == ""){
         alert("Please enter a search term.");
@@ -25,6 +27,8 @@ function GetSongsByName(){
     }
     }
 
+
+//Get more song using the offset
 function loadMoreSong(){
         axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value + "/&offset=" + offset.value
         ,{withCredentials : true}

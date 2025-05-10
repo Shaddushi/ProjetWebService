@@ -5,7 +5,9 @@ import axios from 'axios';
 
 const search = ref("");
 
-function GetSongsByName(){
+
+// get the albums from the API from a search
+function GetAlbumsByName(){
     if(search.value == ""){
         alert("Please enter a search term.");
     }
@@ -32,8 +34,8 @@ function GetSongsByName(){
     <div>
         <div id="searchBar">
             <div id="SearchInputRegrouped">
-                <input type="text" placeholder="Search for albums..." id="SearchInput" v-model="search" @keyup.enter="GetSongsByName()" autocomplete="off">
-                <button id="searchButton"><img src="../../../assets/img/loupe.png" @click="GetSongsByName()"></button>
+                <input type="text" placeholder="Search for albums..." id="SearchInput" v-model="search" @keyup.enter="GetAlbumsByName()" autocomplete="off">
+                <button id="searchButton"><img src="../../../assets/img/loupe.png" @click="GetAlbumsByName()"></button>
             </div>
         </div>
 

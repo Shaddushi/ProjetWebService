@@ -1,6 +1,16 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { useWindowSize } from 'vue-window-size';
+
+
+
+const router = useRouter();
+const { width} = useWindowSize();
+const maxchars = ref(15);
+
+
+//Get the track data from the props
 const props = defineProps({
         track: {
             type: Object,
@@ -8,11 +18,30 @@ const props = defineProps({
         }
     })
 
-const router = useRouter();
 
+
+// Function to change the page
 const changePage = (path) => {
     router.push(path);
 };
+
+// Set the maxchars value based on the window size
+
+onMounted(() => {
+    if (width.value > 650) {
+        maxchars.value = 20;
+    } else {
+        maxchars.value = 10;
+    }
+});
+
+watch(width, (newWidth) => {
+    if (newWidth > 650) {
+        maxchars.value = 20;
+    } else {
+        maxchars.value = 10;
+    }
+}, { immediate: true });
 
 </script>
 
@@ -21,8 +50,8 @@ const changePage = (path) => {
     <div class="trackItem">
         <img @click="changePage('track/' + props.track.id)" :src="props.track.album.images[0].url" class="trackImage"/>
         <div class="trackInfo">
-            <div @click="changePage('track/' + props.track.id)" class="trackName">{{ props.track.name.substring(0, 15)}}
-                <span v-if="props.track.name.length > 15">...</span>
+            <div @click="changePage('track/' + props.track.id)" class="trackName">{{ props.track.name.substring(0, maxchars)}}
+                <span v-if="props.track.name.length > maxchars">...</span>
             </div>
 
             <div @click="changePage('artist/' + props.track.artists[0].id)" v-if="props.track.artists.length > 1" class="trackArtist">        
@@ -36,8 +65,8 @@ const changePage = (path) => {
         </div>
     
         <div @click="changePage('album/' + props.track.album.id)" class="trackAlbum">
-                {{ props.track.album.name.substring(0, 15)}}
-                <span v-if="props.track.album.name.length > 15">...</span>
+                {{ props.track.album.name.substring(0, maxchars)}}
+                <span v-if="props.track.album.name.length > maxchars">...</span>
         </div>
     
     </div>

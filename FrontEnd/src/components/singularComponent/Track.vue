@@ -5,6 +5,8 @@ import {useRoute} from "vue-router";
 import axios from 'axios';
 const query = ref();
 
+
+//get the ID from the URL
 onMounted(() => {
     const route = useRoute();
     query.value = route.params.id;
@@ -13,7 +15,7 @@ onMounted(() => {
 });
 
 
-
+//get the song from the API using the ID
 function getSingularSongFromID(){
         axios.get("http://localhost:5164/ConnectSpotify/SearchSongsFromId?q=" + query.value
         ,{withCredentials : true}

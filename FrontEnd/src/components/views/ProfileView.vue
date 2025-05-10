@@ -12,8 +12,9 @@ const props = defineProps({
         },
     })
 
-onMounted(() => {
 
+// get the profile pic if it exists else use the default one set above
+onMounted(() => {
     if(props.profileData.images.length > 0){
         images.value = props.profileData.images[0].url;
     }

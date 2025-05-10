@@ -48,7 +48,7 @@ function changeCssButtons(path){
     }
 }
 
-
+// Function to change the page
 const changePage = (path) => {
     changeCssButtons(path);
     router.push(path);
