@@ -51,4 +51,34 @@ public class InputSpotify : IInputSpotify{
         
         return jsonResponse;
     }
+
+    async public Task<SpotifyAlbumsResponse> GetAlbumsResponse( string q, string offset){
+
+        var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+        var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
+
+        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={q}&type=album&limit=50&offset={offset}").Result.Content.ReadAsStringAsync();
+        var jsonResponse = System.Text.Json.JsonSerializer.Deserialize<SpotifyAlbumsResponse>(response);
+        
+        return jsonResponse;
+    }
+
+    async public Task<Album>  GetAlbumsIdResponse(string q){
+
+        var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+        var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
+
+        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/albums/{q}").Result.Content.ReadAsStringAsync();
+        
+        var jsonResponse = System.Text.Json.JsonSerializer.Deserialize<Album>(response);
+        
+        return jsonResponse;
+    }
+
+    
+
 }
