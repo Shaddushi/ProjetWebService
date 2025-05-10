@@ -51,4 +51,11 @@ public class ConnectSpotify : ControllerBase
         return Ok(Tracks);
     }
 
+    [HttpGet("SearchSongsFromId")]
+    public IActionResult SearchSongsFromId([FromQuery] string q)
+    {
+        var SongsId = _iconnectspotify.SearchSongsFromId(q);
+        return Ok(SongsId);
+    }
+
 }

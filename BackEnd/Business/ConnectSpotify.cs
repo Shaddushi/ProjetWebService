@@ -27,4 +27,10 @@ public class ConnectSpotify : IConnectSpotify
         var response = await _inputspotify.GetTracksResponse(q, offset);
         return response;
     }
+
+    async public Task<Track> SearchSongsFromId(string q){
+        var response = await _inputspotify.GetTracksIdResponse(q);
+        return response;
+    }
+    
 }

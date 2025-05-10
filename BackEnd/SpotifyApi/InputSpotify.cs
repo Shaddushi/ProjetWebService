@@ -31,11 +31,24 @@ public class InputSpotify : IInputSpotify{
 
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
 
-        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={q}&type=track&offset={offset}&limit=50").Result.Content.ReadAsStringAsync();
+        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={q}&type=track&limit=50&offset={offset}").Result.Content.ReadAsStringAsync();
         
         var jsonResponse = System.Text.Json.JsonSerializer.Deserialize<SpotifyTracksResponse>(response);
         
         return jsonResponse;
     }
 
+    async public Task<Track>  GetTracksIdResponse(string q){
+
+        var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+        var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
+
+        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/tracks/{q}").Result.Content.ReadAsStringAsync();
+        
+        var jsonResponse = System.Text.Json.JsonSerializer.Deserialize<Track>(response);
+        
+        return jsonResponse;
+    }
 }
