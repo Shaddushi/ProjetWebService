@@ -37,3 +37,6 @@ Backend/Entities/obj
 
 Backend/SpotifyApi/bin
 Backend/SpotifyApi/obj
+
+Backend/Repositories/bin
+Backend/Repositories/obj
