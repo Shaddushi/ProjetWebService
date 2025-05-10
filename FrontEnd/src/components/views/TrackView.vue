@@ -174,13 +174,28 @@ function loadMoreSong(){
 
 
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1150px) {
     #searchResults {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
     .trackResult {
         min-width: 100%;
         max-height: 100%;
+    }
+    
+}
+
+
+@media screen and (max-width: 600px) {
+    #SearchInputRegrouped {
+        width: 90%;
+    }
+
+    #searchButton img {
+        width: 30px;
+        height: 100%;
+        margin-top: 8px;
+        margin-left: 20%;
     }
     
 }

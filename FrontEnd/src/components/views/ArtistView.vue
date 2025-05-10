@@ -81,13 +81,12 @@ function GetSongsByName(){
     width: 500px;
     border: 2px solid var(--Secondary-color) ;
     border-radius: 1000px;
-    background: rgb(105, 102, 102);
+    background: var(--Quaternary-color);
     font-size: 16px;
     margin-bottom: 10px;
 }
 
 #SearchInput::placeholder {
-    color: var(--Secondary-color);
     font-family: 'Font', sans-serif;
     
     font-size: large;
@@ -121,6 +120,31 @@ function GetSongsByName(){
     height: 40%;
     margin-top: 8px;
     margin-left: 28%;
+}
+@media screen and (max-width: 1150px) {
+    #searchResults {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+    .artistResult {
+        min-width: 100%;
+        max-height: 100%;
+    }
+    
+}
+
+
+@media screen and (max-width: 600px) {
+    #SearchInputRegrouped {
+        width: 90%;
+    }
+
+    #searchButton img {
+        width: 30px;
+        height: 100%;
+        margin-top: 8px;
+        margin-left: 20%;
+    }
+    
 }
 
 </style>

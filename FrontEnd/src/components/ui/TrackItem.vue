@@ -21,8 +21,8 @@ const changePage = (path) => {
     <div class="trackItem">
         <img @click="changePage('track/' + props.track.id)" :src="props.track.album.images[0].url" class="trackImage"/>
         <div class="trackInfo">
-            <div @click="changePage('track/' + props.track.id)" class="trackName">{{ props.track.name.substring(0, 20)}}
-                <span v-if="props.track.name.length > 20">...</span>
+            <div @click="changePage('track/' + props.track.id)" class="trackName">{{ props.track.name.substring(0, 15)}}
+                <span v-if="props.track.name.length > 15">...</span>
             </div>
 
             <div @click="changePage('artist/' + props.track.artists[0].id)" v-if="props.track.artists.length > 1" class="trackArtist">        
@@ -36,8 +36,8 @@ const changePage = (path) => {
         </div>
     
         <div @click="changePage('album/' + props.track.album.id)" class="trackAlbum">
-                {{ props.track.album.name.substring(0, 20)}}
-                <span v-if="props.track.album.name.length > 20">...</span>
+                {{ props.track.album.name.substring(0, 15)}}
+                <span v-if="props.track.album.name.length > 15">...</span>
         </div>
     
     </div>
@@ -59,6 +59,7 @@ div{
     width: 100%;
     box-sizing: border-box; 
     background: var(--Quaternary-color);
+    
 }
 .trackImage {
     width: 50px;

@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^1.8.2",
     "colorthief": "^2.6.0",
+    "country-flag-icons": "^1.5.19",
     "vue": "^3.5.13",
     "vue-axios": "^3.5.2",
     "vue-router": "^4.5.0"

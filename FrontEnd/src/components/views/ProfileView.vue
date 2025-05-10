@@ -1,11 +1,9 @@
 
 <script setup>
 import { onMounted } from 'vue';
-
-
 import { ref } from 'vue';
 import axios from 'axios';
-
+import { countries } from 'country-flag-icons'
 const images = ref("../assets/img/defaultpic.png");
 
 const props = defineProps({
@@ -15,6 +13,7 @@ const props = defineProps({
     })
 
 onMounted(() => {
+
     if(props.profileData.images.length > 0){
         images.value = props.profileData.images[0].url;
     }
@@ -25,8 +24,18 @@ onMounted(() => {
 <template>
     <div id="profileView">
         <div id="profileHeader">
-            <img :src="images" id="profileImage"/>
-            <div id="profileName">Profil </div>
+            <img :src="images" id="profileImage" />
+            <div id="profileHeaderContent">
+                <div id="profileHeaderRow">  
+                    
+                    <div id="profileName">   {{ props.profileData.display_name }} ·</div>
+                    <div id="profileCountry">
+                        <img :src="`../../../node_modules/country-flag-icons/3x2/${props.profileData.country}.svg`" :alt="`flag-${props.profileData.country}`">
+                    </div> 
+                </div>
+                <div id="profileFollowers" class="profileContent">Followers: {{ props.profileData.followers_total }}</div>
+                <div id="profileEmail" class="profileContent">E-mail : {{ props.profileData.email }}</div>
+            </div>
         </div>
     </div>
 
@@ -36,9 +45,7 @@ onMounted(() => {
 
 <style scoped>
 
-:root {
-    --Profile-color: #535353;
-}
+
 
 #profileView{
     display: flex;
@@ -57,24 +64,84 @@ onMounted(() => {
 }
 
 #profileImage{
-            width: 15%;
-            height: 15%;
+            width: 15vw;
+            height: 15vw;
             border-radius: 500px;
             margin: 2%;
             border: 2px solid var(--Secondary-color);
         }
 
 
-#profileName{
-    font-size: 3em;
+
+#profileCountry{
+    width: auto;
+    height: auto;
+    margin-right: 2%;
     margin-top: 2%;
-    color: var(--Primary-color);
+}
+
+#profileName{
+    display: flex;
+    font-size: 3vw;
+    margin-top: 2%;
+    
+    color: var(--Secondary-color);
     font-family: 'Font', sans-serif;
+
+    margin-right: 1%;
 }
 
 
+#profileCountry img{
+    width: 5vw;
+    margin-left: 5px;
+    margin-top: 3%;
+}
 
 
+#profileFollowers{
+    margin-top: 1%;
+}
 
+.profileContent{
+    font-size: 1vw;
+    margin-top: 10px;
+    color: var(--Quinary-color);
+    font-family: 'Font', sans-serif;
+}
+
+#profileHeaderRow{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1%;
+}
+
+#profileHeaderContent{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    #profileImage{
+        width: 20vw;
+        height: 20vw;
+    }
+    #profileName{
+        font-size: 5vw;
+    }
+    #profileCountry img{
+        width: 7vw;
+        height: 7vw;
+    }
+    .profileContent{
+        font-size: 2vw;
+        margin-top: 5px;
+    }
+
+    #profilefollowers{
+        margin-top: 2px;
+    }
+}
 
 </style>

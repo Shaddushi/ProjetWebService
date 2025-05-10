@@ -164,6 +164,18 @@ const changePage = (path) => {
         }
 
 
+@media screen and (max-width:780px) {
 
+    #Header_Name{
+        display: none;
+    }
+
+    #nav button{
+        font-size: 16px;
+        margin-left: 20px;
+    }
+
+    
+}
 
 </style>
