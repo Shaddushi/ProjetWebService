@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 
 
@@ -14,43 +14,13 @@ const props = defineProps({
         
     })
 
-const tracksActivated = ref(false);
-const albumsActivated = ref(false);
-const artistsActivated = ref(false);
-
 
 const router = useRouter();
+const value = router.currentRoute;
 
-
-// J'ai fait mieux en code on va pas se mentir 
-// Mais bon j'ai pas trouver de solution pour 
-// l'instant... 
-function changeCssButtons(path){
-    if(path == "/tracks"){
-        tracksActivated.value = true;
-        albumsActivated.value = false;
-        artistsActivated.value = false;
-    }
-    else if(path == "/albums"){
-        tracksActivated.value = false;
-        albumsActivated.value = true;
-        artistsActivated.value = false;
-    }
-    else if(path == "/artists"){
-        tracksActivated.value = false;
-        albumsActivated.value = false;
-        artistsActivated.value = true;
-    }
-    else if(path == "/profile"){
-        tracksActivated.value = false;
-        albumsActivated.value = false;
-        artistsActivated.value = false;      
-    }
-}
 
 // Function to change the page
 const changePage = (path) => {
-    changeCssButtons(path);
     router.push(path);
 };
 
@@ -63,9 +33,9 @@ const changePage = (path) => {
     
     <div id="Header">  
         <nav id="nav">
-        <button @click="changePage('/tracks')" :class="{OnPage: tracksActivated}">Tracks</button>
-        <button @click="changePage('/albums')" :class="{OnPage: albumsActivated}">Albums</button>
-        <button @click="changePage('/artists')" :class="{OnPage: artistsActivated}">Artists</button>
+        <button @click="changePage('/tracks')" :class="{OnPage: value.path === '/tracks'}">Tracks</button>
+        <button @click="changePage('/albums')" :class="{OnPage: value.path === '/albums'}">Albums</button>
+        <button @click="changePage('/artists')" :class="{OnPage: value.path === '/artists'}">Artists</button>
         </nav>
         <button @click="changePage('/profile')" id="Profile">
                 <div id="Header_Name" class="Font">  {{ display_name }} </div >
@@ -156,6 +126,8 @@ const changePage = (path) => {
         }
 
         #Header_Img{
+            aspect-ratio: 1 / 1;
+            object-fit: cover; 
             border-radius: 50%;
             margin-left: 20px;
             margin-right: 20px;

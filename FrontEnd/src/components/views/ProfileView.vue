@@ -65,12 +65,14 @@ onMounted(() => {
 }
 
 #profileImage{
-            width: 15vw;
-            height: 15vw;
-            border-radius: 500px;
-            margin: 2%;
-            border: 2px solid var(--Secondary-color);
-        }
+        aspect-ratio: 1 / 1;
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;    
+        object-fit: cover;  
+        margin: 2%;
+        border: 2px solid var(--Secondary-color);
+    }
 
 
 

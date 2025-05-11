@@ -2,9 +2,10 @@
 
 import { ref } from 'vue';
 import axios from 'axios';
+import AlbumItem from '../ui/AlbumItem.vue';
 
 const search = ref("");
-
+const albums = ref([]);
 
 // get the albums from the API from a search
 function GetAlbumsByName(){
@@ -16,6 +17,7 @@ function GetAlbumsByName(){
         {withCredentials : true}
          ).then((response) => {
             console.log(response.data);
+            albums.value = response.data.result.albums.items;
         }).catch((error)=>{
               console.log(error)
             })
@@ -41,11 +43,7 @@ function GetAlbumsByName(){
 
         <div id="searchResults" class="Font">
             <div v-for="album in albums" class="albumResult">
-                <img :src="album.image" class="albumImage"/>
-                <div class="albumInfo">
-                    <div class="albumName">{{ album.name }}</div>
-                    <div class="albumArtist">{{ album.artist }}</div>
-                </div>
+                <AlbumItem :album="album"  />
             </div>
         </div>
     </div>
@@ -89,13 +87,10 @@ function GetAlbumsByName(){
 }
 
 #SearchInput::placeholder {
-    
     font-family: 'Font', sans-serif;
     
     font-size: large;
 }
-
-
 
 #SearchInput:focus{
     outline: none;
@@ -108,7 +103,6 @@ function GetAlbumsByName(){
     
     
 }
-
 
 #searchButton {
     background: none;
@@ -125,11 +119,49 @@ function GetAlbumsByName(){
     margin-left: 28%;
 }
 
+#searchResults {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+    gap: 1rem;
+
+    width: 96%;
+    margin-top: 40px;
+    margin-left: 2%;
+    margin-right: 2%;
+
+}
+
+
+
+#loadMoreButton{
+    font-family: 'Font', sans-serif;
+    background: var(--Secondary-color);
+    border: none;
+    color: var(--Quaternary-color);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#loadMoreButtonDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+
+
 @media screen and (max-width: 1150px) {
     #searchResults {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
-    .albumResult {
+    .trackResult {
         min-width: 100%;
         max-height: 100%;
     }
@@ -150,6 +182,5 @@ function GetAlbumsByName(){
     }
     
 }
-
 
 </style>
