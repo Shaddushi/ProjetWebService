@@ -7,7 +7,7 @@ import { useWindowSize } from 'vue-window-size';
 
 const router = useRouter();
 const { width} = useWindowSize();
-const maxchars = ref(15);
+const maxchars = ref(25);
 
 
 //Get the track data from the props
@@ -26,9 +26,11 @@ const changePage = (path) => {
 };
 
 // Set the maxchars value based on the window size
-
 onMounted(() => {
-    if (width.value > 650) {
+    if (width.value > 1250) {
+        maxchars.value = 25;
+    }
+    else if (width.value > 650) {
         maxchars.value = 20;
     } else {
         maxchars.value = 10;
@@ -36,12 +38,16 @@ onMounted(() => {
 });
 
 watch(width, (newWidth) => {
-    if (newWidth > 650) {
+    if (newWidth > 1250) {
+        maxchars.value = 25;
+    }
+    else if (newWidth > 650) {
         maxchars.value = 20;
-    } else {
+    } 
+    else {
         maxchars.value = 10;
     }
-}, { immediate: true });
+});
 
 </script>
 
@@ -83,7 +89,8 @@ div{
     align-items: center;
     padding: 10px;
     margin: 0; 
-    border: var(--Primary-color) 3px solid;
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease-in-out; 
     border-radius: 10px;
     width: 100%;
     box-sizing: border-box; 
@@ -155,9 +162,8 @@ div{
 }
 
 .trackItem:hover {
-    border: var(--Secondary-color) 1px solid;
-    transition: 0.2s ease-in-out;
-
+    border-color: var(--Secondary-color);
+    box-shadow: 0 0 5px var(--Secondary-color);
 }
 
 

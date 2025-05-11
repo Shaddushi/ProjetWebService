@@ -28,8 +28,10 @@ const changePage = (path) => {
 // Set the maxchars value based on the window size
 
 onMounted(() => {
-    console.log(props.album);
-    if (width.value > 650) {
+    if (width > 1250) {
+        maxchars.value = 25;
+    }
+    else if (width > 650) {
         maxchars.value = 20;
     } else {
         maxchars.value = 10;
@@ -37,7 +39,10 @@ onMounted(() => {
 });
 
 watch(width, (newWidth) => {
-    if (newWidth > 650) {
+    if (newWidth > 1250) {
+        maxchars.value = 25;
+    }
+    else if (newWidth > 650) {
         maxchars.value = 20;
     } else {
         maxchars.value = 10;
@@ -51,7 +56,7 @@ watch(width, (newWidth) => {
     <div class="albumItem">
         <img @click="changePage('album/' + props.album.id)" :src="props.album.images[0].url" class="albumImage"/>
         <div class="albumInfo">
-            <div @click="changePage('album/' + props.album.album.id)" class="albumName">{{ props.album.name.substring(0, maxchars)}}
+            <div @click="changePage('album/' + props.album.id)" class="albumName">{{ props.album.name.substring(0, maxchars)}}
                 <span v-if="props.album.name.length > maxchars">...</span>
             </div>
 
@@ -85,7 +90,7 @@ div{
     align-items: center;
     padding: 10px;
     margin: 0; 
-    border: var(--Primary-color) 3px solid;
+    border: 1px solid transparent;
     border-radius: 10px;
     width: 100%;
     box-sizing: border-box; 
@@ -157,8 +162,8 @@ div{
 }
 
 .albumItem:hover {
-    border: var(--Secondary-color) 1px solid;
-    transition: 0.2s ease-in-out;
+    border-color: var(--Secondary-color);
+    box-shadow: 0 0 5px var(--Secondary-color);
 
 }
 

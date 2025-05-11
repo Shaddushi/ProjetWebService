@@ -6,6 +6,7 @@ import AlbumItem from '../ui/AlbumItem.vue';
 
 const search = ref("");
 const albums = ref([]);
+const offset = ref(0);
 
 // get the albums from the API from a search
 function GetAlbumsByName(){
@@ -16,8 +17,11 @@ function GetAlbumsByName(){
         axios.get("http://localhost:5164/ConnectSpotify/SearchAlbums?q=" + search.value + "/&offset=" + 0,
         {withCredentials : true}
          ).then((response) => {
-            console.log(response.data);
             albums.value = response.data.result.albums.items;
+            offset.value += albums.value.length;
+            if (albums.value.length == 0){
+                alert("No albums found");
+            }
         }).catch((error)=>{
               console.log(error)
             })
@@ -25,6 +29,18 @@ function GetAlbumsByName(){
     }
     
 
+//Get more albums using the offset
+function loadMoreAlbum(){
+        axios.get("http://localhost:5164/ConnectSpotify/SearchAlbums?q=" + search.value + "/&offset=" + offset.value
+        ,{withCredentials : true}
+         ).then((response) => {
+            albums.value = albums.value.concat(response.data.result.albums.items);
+            offset.value += response.data.result.albums.items.length;
+        }).catch((error)=>{
+              console.log(error)
+            })
+    }
+    
 
 
 
@@ -46,7 +62,12 @@ function GetAlbumsByName(){
                 <AlbumItem :album="album"  />
             </div>
         </div>
+        <div v-if="offset>0 && albums.length >= 0" id="loadMoreButtonDiv" class="Font">
+            <button  @click="loadMoreAlbum()" id="loadMoreButton">Load more</button>
+        </div>
     </div>
+
+    
 </template>
 
 

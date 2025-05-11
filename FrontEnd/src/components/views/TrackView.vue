@@ -19,8 +19,10 @@ function GetSongsByName(){
         ,{withCredentials : true}
          ).then((response) => {
             tracks.value = response.data.result.tracks.items;
-            console.log(tracks.value);
             offset.value += tracks.value.length;
+            if (tracks.value.length == 0){
+                alert("No albums found");
+            }
         }).catch((error)=>{
               console.log(error)
             })
@@ -33,8 +35,7 @@ function loadMoreSong(){
         axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value + "/&offset=" + offset.value
         ,{withCredentials : true}
          ).then((response) => {
-            tracks.value = [...tracks.value, ...response.data.result.tracks.items];
-            console.log(tracks.value);
+            tracks.value = tracks.value.concat(response.data.result.tracks.items);
             offset.value += response.data.result.tracks.items.length;
         }).catch((error)=>{
               console.log(error)
@@ -182,10 +183,7 @@ function loadMoreSong(){
     #searchResults {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
-    .trackResult {
-        min-width: 100%;
-        max-height: 100%;
-    }
+    
     
 }
 
