@@ -16,6 +16,7 @@ onMounted(() => {
             if(response.data == ""){
               
               ConnectUserToSpotify()
+              
 
             }
             else{

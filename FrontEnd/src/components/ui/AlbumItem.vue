@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router';
 import { useWindowSize } from 'vue-window-size';
 
 
-
 const router = useRouter();
 const { width} = useWindowSize();
 const maxchars = ref(15);
