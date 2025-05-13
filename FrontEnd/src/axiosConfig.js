@@ -8,8 +8,7 @@ axios.interceptors.response.use(
   response => response,
   async error => {
     if (error.response && error.response.status === 500) {
-      await ConnectUserToSpotify();
-      router.push('/profile');
+      ConnectUserToSpotify();
       return Promise.reject(error);
     }
     return Promise.reject(error);
