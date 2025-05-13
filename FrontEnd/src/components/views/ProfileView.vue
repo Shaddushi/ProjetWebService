@@ -36,6 +36,9 @@ onMounted(() => {
                 </div>
                 <div id="profileFollowers" class="profileContent">Followers: {{ props.profileData.followers_total }}</div>
                 <div id="profileEmail" class="profileContent">E-mail : {{ props.profileData.email }}</div>
+                <a id="profileSpotify" class="profileContent" :href="`https://open.spotify.com/user/${ props.profileData.id }`" target="_blank">
+                    <img src="../../../assets/img/spotifyLogo.png" alt="Spotify">
+                </a>
             </div>
         </div>
     </div>
@@ -103,7 +106,7 @@ onMounted(() => {
 
 
 #profileFollowers{
-    margin-top: 1%;
+    margin-top: 2%;
 }
 
 .profileContent{
@@ -125,6 +128,14 @@ onMounted(() => {
     width: 100%;
 }
 
+#profileSpotify{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1%;
+    width: 3vw;
+    height: 3vw;
+}
+
 @media screen and (max-width: 768px) {
     #profileImage{
         width: 20vw;
@@ -144,6 +155,11 @@ onMounted(() => {
 
     #profilefollowers{
         margin-top: 2px;
+    }
+
+    #profileSpotify{
+        width: 5vw;
+        height: 5vw;
     }
 }
 

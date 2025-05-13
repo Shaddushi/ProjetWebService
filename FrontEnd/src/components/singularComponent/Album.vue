@@ -5,7 +5,7 @@ import {useRoute} from "vue-router";
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 const query = ref();
-const track = ref();
+const album = ref();
 const router = useRouter();
 
 //get the ID from the URL
@@ -13,16 +13,16 @@ onMounted(() => {
     const route = useRoute();
     query.value = route.params.id;
     console.log(query.value);
-    getSingularSongFromID()
+    getSingularAlbumFromID()
 });
 
 //get the song from the API using the ID
-function getSingularSongFromID(){
-        axios.get("http://localhost:5164/ConnectSpotify/SearchSongsFromId?q=" + query.value
+function getSingularAlbumFromID(){
+        axios.get("http://localhost:5164/ConnectSpotify/SearchAlbumsFromId?q=" + query.value
         ,{withCredentials : true}
          ).then((response) => {
             console.log(response.data)
-            track.value = response.data.result;
+            album.value = response.data.result;
         }).catch((error)=>{
               console.log(error)
             })
@@ -37,36 +37,26 @@ const changePage = (path) => {
 
 
 <template>
-    <div id="singularContainer" v-if="track">
+    <div id="singularContainer" v-if="album">
         <div>  
-            <img :src="track.album.images[0].url" id="singularImage"/>
+            <img :src="album.images[0].url" id="singularImage"/>
         </div>
     
         <div id="singularInfo" class="Font">
-            <div id="singularTitle">{{ track.name }}</div>
-            <button @click="changePage('/album/' + track.album.id)" id="singularAlbum">{{ track.album.name }}</button>
+            <div id="singularType"> {{album.album_type.substring(0,1).toUpperCase()+ album.album_type.substring(1) }}</div>
+            <div  id="singularTitle">{{ album.name }}</div>
             
-            <a id="singularSpotify" :href="`https://open.spotify.com/track/${ track.id }`" target="_blank">
-                <img src="../../../assets/img/spotifyLogo.png" alt="Spotify">
+            <a id="singularSpotify" :href="`https://open.spotify.com/album/${ album.id }`" target="_blank">
+                    <img src="../../../assets/img/spotifyLogo.png" alt="Spotify">
             </a>
-            
+
             <div id="singularArtistHolder" >
-                <button  @click="changePage('/artist/' + track.artists[i].id)" class="singularArtist" v-for="(artist,i) in track.artists">{{artist.name }} 
-                   <div v-if="i != track.artists.length - 1">,</div>
+                <button  @click="changePage('/artist/' + album.artists[i].id)" class="singularArtist" v-for="(artist,i) in album.artists">{{artist.name }} 
+                   <div v-if="i != album.artists.length - 1">,</div>
                 </button>
-                <div id="singularReleaseDate">· {{ track.album.release_date }}</div>
+                <div id="singularReleaseDate">· {{ album.release_date }}</div>
             </div>
         </div>
-    </div>
-    <div id="singularRecommandedContainer" v-if="track">
-        <div id="singularRecommandedTitle" class="Font">Similar Songs</div>
-        <div id="singularRecommandedList">
-        <!-- Attendre que robin fait le back pour afficher les titres similaires -->
-        </div>
-    </div>
-
-    <div id="singularCommentariesContainer" v-if="track">
-        <!-- Attendre que robin fait le back pour afficher les commentaires -->
     </div>
 
 </template>
@@ -94,25 +84,25 @@ const changePage = (path) => {
     flex-direction: column;
  }
 
-
-#singularTitle{
-    font-size: 4vw;
+#singularType{
+    font-size: 2vw;
     font-weight: bold;
-    margin-left: 2vw;
-    margin-top: 4.5vw;
-    color: var(--Secondary-color);
-}
-
-#singularAlbum{
-    background: none;
-    border: none;
-    font-size: 1.5vw;
     margin-left: 2vw;
     margin-top: 1vw;
     color: var(--Quinary-color);
-    width: max-content;
-    text-align: left;
 }
+
+
+#singularTitle{
+    background: none;
+    border: none;
+    font-size: 4vw;
+    font-weight: bold;
+    margin-left: 2vw;
+    margin-top: 2.5vw;
+    color: var(--Secondary-color);
+}
+
 
 #singularSpotify{
     display: flex;
@@ -122,6 +112,8 @@ const changePage = (path) => {
     height: 3vw;
     margin-left: 2.5vw;
 }
+
+
 #singularArtistHolder{
     display: flex;
     flex-direction: row;
@@ -146,22 +138,6 @@ const changePage = (path) => {
     margin-right: 5px;
     margin-top: 1vw;
     color: var(--Quinary-color);
-}
-
-
-#singularRecommandedContainer{
-    display: flex;
-    flex-direction: column;
-    margin-left: 5vw;
-    margin-top: 4vw;
-
-}
-
-#singularRecommandedTitle{
-    font-weight: bold;
-    color: var(--Quinary-color);
-    font-size: 2vw;
-    text-decoration: underline;
 }
 
 

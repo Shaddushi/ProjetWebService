@@ -29,6 +29,11 @@ const router = createRouter({
       path: '/track/:id',
       name: 'TrackDetails',
       component: () => import('@/components/singularComponent/Track.vue'),
+    },
+    {
+      path: '/album/:id',
+      name: 'AlbumDetails',
+      component: () => import('@/components/singularComponent/Album.vue'),
     }
   ],
 })
