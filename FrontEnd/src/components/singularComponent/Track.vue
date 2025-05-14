@@ -12,7 +12,6 @@ const router = useRouter();
 onMounted(() => {
     const route = useRoute();
     query.value = route.params.id;
-    console.log(query.value);
     getSingularSongFromID()
 });
 

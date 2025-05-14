@@ -10,9 +10,8 @@ const router = useRouter();
 
 //get the ID from the URL
 onMounted(() => {
-    const route = useRoute();
+    const route = useRoute();    
     query.value = route.params.id;
-    console.log(query.value);
     getSingularAlbumFromID()
 });
 

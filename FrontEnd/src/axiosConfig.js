@@ -8,15 +8,17 @@ axios.interceptors.response.use(
   response => response,
   async error => {
     if (error.response && error.response.status === 500) {
+      window.alert("session expired, reloading page");
       ConnectUserToSpotify();
       return Promise.reject(error);
+
     }
     return Promise.reject(error);
   }
 );
 
-function ConnectUserToSpotify(){
-        axios.get("http://localhost:5164/ConnectSpotify/GetSpotifyAuth",{withCredentials : true}).then((response) => {
+function ConnectUserToSpotify(){ 
+    axios.get("http://localhost:5164/ConnectSpotify/GetSpotifyAuth",{withCredentials : true}).then((response) => {
             window.location.href = response.data;
             }).catch((error)=>{
               console.log(error)

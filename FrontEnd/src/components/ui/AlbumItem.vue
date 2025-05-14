@@ -6,7 +6,7 @@ import { useWindowSize } from 'vue-window-size';
 
 const router = useRouter();
 const { width} = useWindowSize();
-const maxchars = ref(15);
+const maxchars = ref(25);
 
 
 //Get the album data from the props.album
@@ -27,10 +27,10 @@ const changePage = (path) => {
 // Set the maxchars value based on the window size
 
 onMounted(() => {
-    if (width > 1250) {
+    if (width.value > 1250) {
         maxchars.value = 25;
     }
-    else if (width > 650) {
+    else if (width.value > 650) {
         maxchars.value = 20;
     } else {
         maxchars.value = 10;
