@@ -5,14 +5,14 @@ using Core.SpotifyApi.IInputSpotify;
 using Entities.SpotifyEntities.Track;
 using SpotifyApi.InputSpotify;
 
-public class ServicesGetterSpotify : IGetterSpotify
+public class GetterSpotify : IGetterSpotify
 {
     private readonly IInputSpotify _inputspotify;
     
-    public ServicesGetterSpotify(IAuthSpotify s, IInputSpotify i){
+    public GetterSpotify(IAuthSpotify s, IInputSpotify i){
         _inputspotify = i;
     }
-    
+
     async public Task<SpotifyTracksResponse> GetTracks(string q, string offset){
         var response = await _inputspotify.GetTracksResponse(q, offset);
         return response;

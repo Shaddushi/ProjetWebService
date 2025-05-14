@@ -5,12 +5,12 @@ using Core.SpotifyApi.IInputSpotify;
 using Entities.SpotifyEntities.Track;
 using SpotifyApi.InputSpotify;
 
-public class ServicesConnectSpotify : IConnectSpotify
+public class ConnectSpotify : IConnectSpotify
 {
     private readonly IAuthSpotify _authspotify;
     private readonly IInputSpotify _inputspotify;
     
-    public ServicesConnectSpotify(IAuthSpotify s, IInputSpotify i){
+    public ConnectSpotify(IAuthSpotify s, IInputSpotify i){
         _authspotify = s;
         _inputspotify = i;
     }
