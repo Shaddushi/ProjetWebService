@@ -17,7 +17,7 @@ onMounted(() => {
 
 //get the song from the API using the ID
 function getSingularAlbumFromID(){
-        axios.get("http://localhost:5164/ConnectSpotify/SearchAlbumsFromId?q=" + query.value
+        axios.get("http://localhost:5164/GetterSpotify/SearchAlbumsFromId?q=" + query.value
         ,{withCredentials : true}
          ).then((response) => {
             console.log(response.data)

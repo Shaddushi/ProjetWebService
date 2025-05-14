@@ -1,16 +1,16 @@
-﻿namespace Business;
+﻿namespace Business.ConnectSpotify;
 using Core.Services;
 using Core.SpotifyApi.IAuthSpotify;
 using Core.SpotifyApi.IInputSpotify;
 using Entities.SpotifyEntities.Track;
 using SpotifyApi.InputSpotify;
 
-public class ConnectSpotify : IConnectSpotify
+public class ServicesConnectSpotify : IConnectSpotify
 {
     private readonly IAuthSpotify _authspotify;
     private readonly IInputSpotify _inputspotify;
     
-    public ConnectSpotify(IAuthSpotify s, IInputSpotify i){
+    public ServicesConnectSpotify(IAuthSpotify s, IInputSpotify i){
         _authspotify = s;
         _inputspotify = i;
     }
@@ -23,24 +23,5 @@ public class ConnectSpotify : IConnectSpotify
         _authspotify.GetUserProfileAsync(token.Result);
     }
 
-    async public Task<SpotifyTracksResponse> GetTracks(string q, string offset){
-        var response = await _inputspotify.GetTracksResponse(q, offset);
-        return response;
-    }
-
-    async public Task<Track> SearchSongsFromId(string q){
-        var response = await _inputspotify.GetTracksIdResponse(q);
-        return response;
-    }
-
-    async public Task<SpotifyAlbumsResponse> GetAlbums(string q, string offset){
-        var response = await _inputspotify.GetAlbumsResponse(q, offset);
-        return response;
-    }
-
-    async public Task<Album> SearchAlbumsFromId(string q){
-        var response = await _inputspotify.GetAlbumsIdResponse(q);
-        return response;
-    }
     
 }

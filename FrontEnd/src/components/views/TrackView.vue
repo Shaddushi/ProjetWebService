@@ -17,7 +17,7 @@ function GetSongsByName(){
         alert("Please enter a search term.");
     }
     else{
-        axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value + "/&offset=" + 0
+        axios.get("http://localhost:5164/GetterSpotify/SearchSongs?q=" + search.value + "/&offset=" + 0
         ,{withCredentials : true}
          ).then((response) => {
             tracks.value = response.data.result.tracks.items;
@@ -34,7 +34,7 @@ function GetSongsByName(){
 
 //Get more song using the offset
 function loadMoreSong(){
-        axios.get("http://localhost:5164/ConnectSpotify/SearchSongs?q=" + search.value + "/&offset=" + offset.value
+        axios.get("http://localhost:5164/GetterSpotify/SearchSongs?q=" + search.value + "/&offset=" + offset.value
         ,{withCredentials : true}
          ).then((response) => {
             tracks.value = tracks.value.concat(response.data.result.tracks.items);

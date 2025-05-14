@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Core.Services;
 using Newtonsoft.Json;
 using Entities.SpotifyEntities.UserProfile;
-namespace Api.Controllers;
+namespace Api.Controllers.ConnectSpotify;
 
 
 [ApiController]
@@ -44,31 +44,4 @@ public class ConnectSpotify : ControllerBase
         return Ok(Profile);
     }
     
-    [HttpGet("SearchSongs")]
-    public IActionResult SearchSongs([FromQuery] string q, string offset)
-    {
-        var Tracks = _iconnectspotify.GetTracks(q, offset);
-        return Ok(Tracks);
-    }
-
-    [HttpGet("SearchSongsFromId")]
-    public IActionResult SearchSongsFromId([FromQuery] string q)
-    {
-        var SongsId = _iconnectspotify.SearchSongsFromId(q);
-        return Ok(SongsId);
-    }
-
-    [HttpGet("SearchAlbums")]
-    public IActionResult SearchAlbums([FromQuery] string q, string offset)
-    {
-        var Albums = _iconnectspotify.GetAlbums(q, offset);
-        return Ok(Albums);
-    }
-
-    [HttpGet("SearchAlbumsFromId")]
-    public IActionResult SearchAlbumsFromId([FromQuery] string q)
-    {
-        var AlbumsId = _iconnectspotify.SearchAlbumsFromId(q);
-        return Ok(AlbumsId);
-    }
 }

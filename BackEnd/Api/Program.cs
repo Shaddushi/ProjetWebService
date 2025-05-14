@@ -1,4 +1,5 @@
-using Business;
+using Business.ConnectSpotify;
+using Business.GetterSpotify;
 using SpotifyApi.AuthSpotify;
 using Core.Services;
 using Core.SpotifyApi.IAuthSpotify;
@@ -12,7 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddScoped<IConnectSpotify,ConnectSpotify>();
+builder.Services.AddScoped<IConnectSpotify,ServicesConnectSpotify>();
+builder.Services.AddScoped<IGetterSpotify,ServicesGetterSpotify>();
 builder.Services.AddScoped<IAuthSpotify,AuthSpotify>();
 builder.Services.AddScoped<IInputSpotify,InputSpotify>();
 builder.Services.AddHttpClient();

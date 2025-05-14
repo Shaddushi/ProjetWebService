@@ -13,7 +13,7 @@ function GetArtistsByName(){
         alert("Please enter a search term.");
     }
     else{
-        axios.get("http://localhost:5164/ConnectSpotify/SearchArtist?q=" + search.value,
+        axios.get("http://localhost:5164/GetterSpotify/SearchArtist?q=" + search.value,
         {withCredentials : true}
          ).then((response) => {
             console.log(response.data);

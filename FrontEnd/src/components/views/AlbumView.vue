@@ -16,7 +16,7 @@ function GetAlbumsByName(){
         alert("Please enter a search term.");
     }
     else{
-        axios.get("http://localhost:5164/ConnectSpotify/SearchAlbums?q=" + search.value + "/&offset=" + 0,
+        axios.get("http://localhost:5164/GetterSpotify/SearchAlbums?q=" + search.value + "/&offset=" + 0,
         {withCredentials : true}
          ).then((response) => {
             albums.value = response.data.result.albums.items;
@@ -33,7 +33,7 @@ function GetAlbumsByName(){
 
 //Get more albums using the offset
 function loadMoreAlbum(){
-        axios.get("http://localhost:5164/ConnectSpotify/SearchAlbums?q=" + search.value + "/&offset=" + offset.value
+        axios.get("http://localhost:5164/GetterSpotify/SearchAlbums?q=" + search.value + "/&offset=" + offset.value
         ,{withCredentials : true}
          ).then((response) => {
             albums.value = albums.value.concat(response.data.result.albums.items);
