@@ -1,13 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Core.Services;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
 using Entities.SpotifyEntities.UserProfile;
-namespace Api.Controllers;
+namespace Api.Controllers.ConnectSpotify;
 
 
 [ApiController]

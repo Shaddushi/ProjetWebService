@@ -1,13 +1,10 @@
 namespace SpotifyApi.AuthSpotify;
 using Entities.SpotifyEntities.TokenData;
 using Entities.SpotifyEntities.UserProfile;
-using Core.SpotifyApi;
-using System.Text.Json;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
+using Core.SpotifyApi.IAuthSpotify;
 public class AuthSpotify : IAuthSpotify {
 
     private readonly HttpClient _httpClient;
@@ -44,6 +41,8 @@ public class AuthSpotify : IAuthSpotify {
 
         var responseContent = await _httpClient.PostAsync("https://accounts.spotify.com/api/token", new FormUrlEncodedContent(parameters)).Result.Content.ReadAsStringAsync();
         var response = System.Text.Json.JsonSerializer.Deserialize<TokenData>(responseContent);
+        var httpContext = _httpContextAccessor.HttpContext;
+        httpContext.Session.SetString("AccessToken",JsonConvert.SerializeObject(response));
         return response.AccessToken;
         }   
 

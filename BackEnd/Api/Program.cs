@@ -1,7 +1,10 @@
-using Business;
+using Business.ConnectSpotify;
+using Business.GetterSpotify;
 using SpotifyApi.AuthSpotify;
 using Core.Services;
-using Core.SpotifyApi;
+using Core.SpotifyApi.IAuthSpotify;
+using Core.SpotifyApi.IInputSpotify;
+using SpotifyApi.InputSpotify;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +14,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IConnectSpotify,ConnectSpotify>();
+builder.Services.AddScoped<IGetterSpotify,GetterSpotify>();
 builder.Services.AddScoped<IAuthSpotify,AuthSpotify>();
-builder.Services.AddScoped<HttpClient>();
+builder.Services.AddScoped<IInputSpotify,InputSpotify>();
+builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
    //  Cors

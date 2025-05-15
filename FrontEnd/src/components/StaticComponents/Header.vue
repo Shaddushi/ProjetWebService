@@ -1,44 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const tracksActivated = ref(false);
-const albumsActivated = ref(false);
-const artistsActivated = ref(false);
-const router = useRouter();
-
-
-// J'ai fait mieux en code on va pas se mentir 
-// Mais bon j'ai pas trouver de solution pour 
-// l'instant... 
-function changeCssButtons(path){
-    if(path == "/tracks"){
-        tracksActivated.value = true;
-        albumsActivated.value = false;
-        artistsActivated.value = false;
-    }
-    else if(path == "/albums"){
-        tracksActivated.value = false;
-        albumsActivated.value = true;
-        artistsActivated.value = false;
-    }
-    else if(path == "/artists"){
-        tracksActivated.value = false;
-        albumsActivated.value = false;
-        artistsActivated.value = true;
-    }
-    else if(path == "/profile"){
-        tracksActivated.value = false;
-        albumsActivated.value = false;
-        artistsActivated.value = false;      
-    }
-}
-
-
-const changePage = (path) => {
-    changeCssButtons(path);
-    router.push(path);
-};
 
 
 const props = defineProps({
@@ -50,6 +13,19 @@ const props = defineProps({
         },
         
     })
+
+
+const router = useRouter();
+const value = router.currentRoute;
+
+
+// Function to change the page
+const changePage = (path) => {
+    router.push(path);
+};
+
+
+
 </script>
 
 
@@ -57,23 +33,24 @@ const props = defineProps({
     
     <div id="Header">  
         <nav id="nav">
-        <button @click="changePage('/tracks')" :class="{OnPage: tracksActivated}">Tracks</button>
-        <button @click="changePage('/albums')" :class="{OnPage: albumsActivated}">Albums</button>
-        <button @click="changePage('/artists')" :class="{OnPage: artistsActivated}">Artists</button>
+        <button @click="changePage('/tracks')" :class="{OnPage: value.path === '/tracks'}">Tracks</button>
+        <button @click="changePage('/albums')" :class="{OnPage: value.path === '/albums'}">Albums</button>
+        <button @click="changePage('/artists')" :class="{OnPage: value.path === '/artists'}">Artists</button>
         </nav>
         <button @click="changePage('/profile')" id="Profile">
                 <div id="Header_Name" class="Font">  {{ display_name }} </div >
                 <img :src="props.images" id="Header_Img">
         </button>
     </div>
+    
 </template>
 
 
-<style>
+<style scoped>
 
 #Header{
     display: flex; 
-    background-color: var(--Primary-color);
+    background-color: var(--Tertiary-color);
     padding: 20px; 
     font-family: 'Font', sans-serif;
     width: 100%;
@@ -137,6 +114,7 @@ const props = defineProps({
         border: none;
         font-family: 'Font', sans-serif;
         font-size:medium;
+        cursor: pointer;
     }
 
         #Header_Name{
@@ -148,12 +126,28 @@ const props = defineProps({
         }
 
         #Header_Img{
-            border-radius: 500px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover; 
+            border-radius: 50%;
             margin-left: 20px;
             margin-right: 20px;
+            height: 64px;
+            width: 64px;
         }
 
 
+@media screen and (max-width:780px) {
 
+    #Header_Name{
+        display: none;
+    }
+
+    #nav button{
+        font-size: 16px;
+        margin-left: 20px;
+    }
+
+    
+}
 
 </style>
