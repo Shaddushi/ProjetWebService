@@ -1,11 +1,9 @@
 namespace SpotifyApi.InputSpotify;
 using System.Net.Http;
 using Core.SpotifyApi.IInputSpotify;
-
 using Microsoft.AspNetCore.Http;
 
 using System.Threading.Tasks;
-using Entities.SpotifyEntities.Track;
 using Core.SpotifyApi.IInputSpotify;
 using System.Net.Http.Headers;
 using System.Text.Json.Nodes;
@@ -24,59 +22,48 @@ public class InputSpotify : IInputSpotify{
         _httpContextAccessor = httpContextAccessor;
     }
 
-    async public Task<SpotifyTracksResponse> GetTracksResponse( string q, string offset){
+    async public Task<String> GetTracksResponse( string q, string offset){
 
         var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
         var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
 
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
 
-        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={q}&type=track&limit=50&offset={offset}").Result.Content.ReadAsStringAsync();
+        return await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={q}&type=track&limit=50&offset={offset}").Result.Content.ReadAsStringAsync();
         
-        var jsonResponse = System.Text.Json.JsonSerializer.Deserialize<SpotifyTracksResponse>(response);
-        
-        return jsonResponse;
     }
 
-    async public Task<Track>  GetTracksIdResponse(string q){
+    async public Task<String>  GetTracksIdResponse(string q){
 
         var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
         var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
 
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
 
-        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/tracks/{q}").Result.Content.ReadAsStringAsync();
+        return await _httpClient.GetAsync($"https://api.spotify.com/v1/tracks/{q}").Result.Content.ReadAsStringAsync();
         
-        var jsonResponse = System.Text.Json.JsonSerializer.Deserialize<Track>(response);
-        
-        return jsonResponse;
     }
 
-    async public Task<SpotifyAlbumsResponse> GetAlbumsResponse( string q, string offset){
+    async public Task<String> GetAlbumsResponse( string q, string offset){
 
         var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
         var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
 
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
 
-        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={q}&type=album&limit=50&offset={offset}").Result.Content.ReadAsStringAsync();
-        var jsonResponse = System.Text.Json.JsonSerializer.Deserialize<SpotifyAlbumsResponse>(response);
-        
-        return jsonResponse;
+        return await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={q}&type=album&limit=50&offset={offset}").Result.Content.ReadAsStringAsync();
+    
     }
 
-    async public Task<Album>  GetAlbumsIdResponse(string q){
+    async public Task<String>  GetAlbumsIdResponse(string q){
 
         var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
         var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
 
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
 
-        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/albums/{q}").Result.Content.ReadAsStringAsync();
+        return await _httpClient.GetAsync($"https://api.spotify.com/v1/albums/{q}").Result.Content.ReadAsStringAsync();
         
-        var jsonResponse = System.Text.Json.JsonSerializer.Deserialize<Album>(response);
-        
-        return jsonResponse;
     }
 
     

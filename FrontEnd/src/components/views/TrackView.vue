@@ -20,7 +20,9 @@ function GetSongsByName(){
         axios.get("http://localhost:5164/GetterSpotify/SearchSongs?q=" + search.value + "/&offset=" + 0
         ,{withCredentials : true}
          ).then((response) => {
-            tracks.value = response.data.result.tracks.items;
+            
+            response = JSON.parse(response.data.response)
+            tracks.value = response.tracks.items;
             offset.value += tracks.value.length;
             if (tracks.value.length == 0){
                 alert("No albums found");
@@ -37,8 +39,10 @@ function loadMoreSong(){
         axios.get("http://localhost:5164/GetterSpotify/SearchSongs?q=" + search.value + "/&offset=" + offset.value
         ,{withCredentials : true}
          ).then((response) => {
-            tracks.value = tracks.value.concat(response.data.result.tracks.items);
-            offset.value += response.data.result.tracks.items.length;
+            
+            response = JSON.parse(response.data.response)
+            tracks.value = tracks.value.concat(response.tracks.items);
+            offset.value += response.tracks.items.length;
         }).catch((error)=>{
               console.log(error)
             })

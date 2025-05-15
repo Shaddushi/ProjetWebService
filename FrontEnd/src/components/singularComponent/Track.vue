@@ -20,8 +20,8 @@ function getSingularSongFromID(){
         axios.get("http://localhost:5164/GetterSpotify/SearchSongsFromId?q=" + query.value
         ,{withCredentials : true}
          ).then((response) => {
-            console.log(response.data)
-            track.value = response.data.result;
+            response = JSON.parse(response.data.response)
+            track.value = response;
         }).catch((error)=>{
               console.log(error)
             })

@@ -2,7 +2,6 @@ namespace Business.GetterSpotify;
 using Core.Services;
 using Core.SpotifyApi.IAuthSpotify;
 using Core.SpotifyApi.IInputSpotify;
-using Entities.SpotifyEntities.Track;
 using SpotifyApi.InputSpotify;
 
 public class GetterSpotify : IGetterSpotify
@@ -13,22 +12,22 @@ public class GetterSpotify : IGetterSpotify
         _inputspotify = i;
     }
 
-    async public Task<SpotifyTracksResponse> GetTracks(string q, string offset){
+    async public Task<String> GetTracks(string q, string offset){
         var response = await _inputspotify.GetTracksResponse(q, offset);
         return response;
     }
 
-    async public Task<Track> SearchSongsFromId(string q){
+    async public Task<String> SearchSongsFromId(string q){
         var response = await _inputspotify.GetTracksIdResponse(q);
         return response;
     }
 
-    async public Task<SpotifyAlbumsResponse> GetAlbums(string q, string offset){
+    async public Task<String> GetAlbums(string q, string offset){
         var response = await _inputspotify.GetAlbumsResponse(q, offset);
         return response;
     }
 
-    async public Task<Album> SearchAlbumsFromId(string q){
+    async public Task<String> SearchAlbumsFromId(string q){
         var response = await _inputspotify.GetAlbumsIdResponse(q);
         return response;
     }

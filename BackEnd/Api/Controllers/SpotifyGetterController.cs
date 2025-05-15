@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Core.Services;
 using Newtonsoft.Json;
 using Entities.SpotifyEntities.UserProfile;
+using Api.Models.SpotifyResponse;
+
 namespace Api.Controllers;
 
 
@@ -20,30 +22,33 @@ public class GetterSpotify : ControllerBase
 
     
     [HttpGet("SearchSongs")]
-    public IActionResult SearchSongs([FromQuery] string q, string offset)
+    public async Task<IActionResult> SearchSongs([FromQuery] string q, string offset)
     {
-        var Tracks = _igetterspotify.GetTracks(q, offset);
-        return Ok(Tracks);
+        var Tracks = await _igetterspotify.GetTracks(q, offset);
+        return Ok(new SpotifyResponseModel{Response = Tracks});
     }
 
     [HttpGet("SearchSongsFromId")]
-    public IActionResult SearchSongsFromId([FromQuery] string q)
+    public async Task<IActionResult> SearchSongsFromId([FromQuery] string q)
     {
-        var SongsId = _igetterspotify.SearchSongsFromId(q);
-        return Ok(SongsId);
+        var SongsId = await _igetterspotify.SearchSongsFromId(q);
+        
+        return Ok(new SpotifyResponseModel{Response = SongsId});
     }
 
     [HttpGet("SearchAlbums")]
-    public IActionResult SearchAlbums([FromQuery] string q, string offset)
+    public async Task<IActionResult> SearchAlbums([FromQuery] string q, string offset)
     {
-        var Albums = _igetterspotify.GetAlbums(q, offset);
-        return Ok(Albums);
+        var Albums = await _igetterspotify.GetAlbums(q, offset);
+        
+        return Ok(new SpotifyResponseModel{Response = Albums});
     }
 
     [HttpGet("SearchAlbumsFromId")]
-    public IActionResult SearchAlbumsFromId([FromQuery] string q)
+    public async Task<IActionResult> SearchAlbumsFromId([FromQuery] string q)
     {
-        var AlbumsId = _igetterspotify.SearchAlbumsFromId(q);
-        return Ok(AlbumsId);
+        var AlbumsId = await _igetterspotify.SearchAlbumsFromId(q);
+        
+        return Ok(new SpotifyResponseModel{Response = AlbumsId});
     }
 }

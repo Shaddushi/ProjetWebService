@@ -20,8 +20,8 @@ function getSingularAlbumFromID(){
         axios.get("http://localhost:5164/GetterSpotify/SearchAlbumsFromId?q=" + query.value
         ,{withCredentials : true}
          ).then((response) => {
-            console.log(response.data)
-            album.value = response.data.result;
+            response = JSON.parse(response.data.response)
+            album.value = response;
         }).catch((error)=>{
               console.log(error)
             })

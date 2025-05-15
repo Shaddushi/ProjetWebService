@@ -2,7 +2,6 @@
 using Core.Services;
 using Core.SpotifyApi.IAuthSpotify;
 using Core.SpotifyApi.IInputSpotify;
-using Entities.SpotifyEntities.Track;
 using SpotifyApi.InputSpotify;
 
 public class ConnectSpotify : IConnectSpotify
