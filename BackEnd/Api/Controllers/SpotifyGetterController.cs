@@ -3,6 +3,7 @@ using Core.Services;
 using Newtonsoft.Json;
 using Entities.SpotifyEntities.UserProfile;
 using Api.Models.SpotifyResponse;
+using System.Threading.Tasks;
 
 namespace Api.Controllers;
 
@@ -50,5 +51,28 @@ public class GetterSpotify : ControllerBase
         var AlbumsId = await _igetterspotify.SearchAlbumsFromId(q);
         
         return Ok(new SpotifyResponseModel{Response = AlbumsId});
+    }
+
+    [HttpGet("SearchArtists")]
+    public async Task<IActionResult> SearchArtists([FromQuery] string q, string offset)
+    {
+        var Artists = await _igetterspotify.GetArtists(q, offset);
+        
+        return Ok(new SpotifyResponseModel{Response = Artists});
+    }
+
+    [HttpGet("SearchArtistsFromId")]
+    public async Task<IActionResult> SearchArtistsFromId([FromQuery] string q)
+    {
+        var ArtistsId = await _igetterspotify.SearchArtistsFromId(q);
+        
+        return Ok(new SpotifyResponseModel{Response = ArtistsId});
+    }
+
+    [HttpGet("GetCurrentlyPlayingSong")]
+    public async Task<IActionResult> GetCurrentSong(){
+        var CurrentSong = await _igetterspotify.GetCurrentSong();
+
+        return Ok(new SpotifyResponseModel{Response = CurrentSong});
     }
 }

@@ -66,6 +66,37 @@ public class InputSpotify : IInputSpotify{
         
     }
 
+    async public Task<String> GetArtistsResponse( string q, string offset){
+
+        var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+        var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
+
+        return await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={q}&type=artist&limit=50&offset={offset}").Result.Content.ReadAsStringAsync();
     
+    }
+
+    async public Task<String>  GetArtistsIdResponse(string q){
+
+        var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+        var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
+
+        return await _httpClient.GetAsync($"https://api.spotify.com/v1/artists/{q}").Result.Content.ReadAsStringAsync();
+        
+    }
+
+    async public Task<String> GetCurrentSongResponse(){
+
+        var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+        var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
+
+        return await _httpClient.GetAsync($"https://api.spotify.com/v1/me/player/currently-playing&scope=user-read-currently-playing").Result.Content.ReadAsStringAsync();
+        
+    }
 
 }

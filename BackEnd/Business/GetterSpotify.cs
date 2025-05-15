@@ -31,5 +31,20 @@ public class GetterSpotify : IGetterSpotify
         var response = await _inputspotify.GetAlbumsIdResponse(q);
         return response;
     }
+
+    async public Task<String> GetArtists(string q, string offset){
+        var response = await _inputspotify.GetArtistsResponse(q, offset);
+        return response;
+    }
+
+    async public Task<String> SearchArtistsFromId(string q){
+        var response = await _inputspotify.GetArtistsIdResponse(q);
+        return response;
+    }
+
+    async public Task<String> GetCurrentSong(){
+        var response = await _inputspotify.GetCurrentSongResponse();
+        return response;
+    }
     
 }
