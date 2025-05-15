@@ -29,7 +29,6 @@ function GetAlbumsByName(){
             response = JSON.parse(response.data.response)
             albums.value = response.albums.items;
             offset.value += response.albums.items.length;
-            
             if (albums.value.length == 0){
                 alert("No albums found");
             }

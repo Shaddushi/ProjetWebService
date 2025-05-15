@@ -3,9 +3,11 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import "../../../assets/localizedCss/styleSearch.css";
+import ArtistItem from '../ui/ArtistItem.vue';
 
 const search = ref("");
-
+const artists = ref([]);
+const offset = ref(0);
 
 //Get the artist from the API from a search
 function GetArtistsByName(){
@@ -16,11 +18,27 @@ function GetArtistsByName(){
         axios.get("http://localhost:5164/GetterSpotify/SearchArtists?q=" + search.value + "/&offset=" + 0,
         {withCredentials : true}
          ).then((response) => {
-            console.log(response.data);
+            response = JSON.parse(response.data.response)
+            artists.value = response.artists.items;
+            offset.value += artists.value.length;
+            console.log(response.artists.items);
         }).catch((error)=>{
               console.log(error)
             })
     }
+    }
+
+function loadMoreArtist(){
+        axios.get("http://localhost:5164/GetterSpotify/SearchArtists?q=" + search.value + "/&offset=" + offset.value
+        ,{withCredentials : true}
+         ).then((response) => {
+            
+            response = JSON.parse(response.data.response)
+            artists.value = artists.value.concat(response.artists.items);
+            offset.value += response.items.length;
+        }).catch((error)=>{
+              console.log(error)
+            })
     }
     
 
@@ -40,16 +58,34 @@ function GetArtistsByName(){
             </div>
         </div>
 
-        <div id="searchResults" class="Font">
+        <div id="searchResultsArtist" class="Font">
             <div v-for="artist in artists" class="artistResult">
-                <img :src="artist.image" class="artistImage"/>
-                <div class="artistInfo">
-                    <div class="artistName">{{ artist.name }}</div>
-                    <div class="artistArtist">{{ artist.artist }}</div>
-                </div>
+                <ArtistItem :artist="artist" />
             </div>
+        </div>
+
+        <div v-if="offset>0 && artists.length >= 0" id="loadMoreButtonDiv" class="Font">
+            <button  @click="loadMoreArtist()" id="loadMoreButton">Load more</button>
         </div>
     </div>
 </template>
 
+
+<style scoped>
+
+#searchResultsArtist{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+
+.artistResult{
+    display: flex;
+    width: 300px;
+}
+
+
+</style>
 

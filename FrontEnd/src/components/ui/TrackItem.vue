@@ -54,7 +54,8 @@ watch(width, (newWidth) => {
 
 <template>
     <div class="trackItem">
-        <img @click="changePage('track/' + props.track.id)" :src="props.track.album.images[0].url" class="trackImage"/>
+        <img v-if="props.track.album.images.length > 0" @click="changePage('track/' + props.track.id)" :src="props.track.album.images[0].url" class="trackImage"/>
+        <img v-else @click="changePage('track/' + props.track.id)" src="../../../assets/img/defaultpic.png" class="trackImage"/>
         <div class="trackInfo">
             <div @click="changePage('track/' + props.track.id)" class="trackName">{{ props.track.name.substring(0, maxchars)}}
                 <span v-if="props.track.name.length > maxchars">...</span>

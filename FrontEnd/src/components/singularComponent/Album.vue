@@ -22,6 +22,7 @@ function getSingularAlbumFromID(){
          ).then((response) => {
             response = JSON.parse(response.data.response)
             album.value = response;
+            console.log(response)
         }).catch((error)=>{
               console.log(error)
             })

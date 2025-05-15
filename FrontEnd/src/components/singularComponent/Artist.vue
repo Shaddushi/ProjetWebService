@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import {useRoute} from "vue-router";
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+
 const query = ref();
 const album = ref();
 const router = useRouter();
@@ -20,7 +21,8 @@ function getSingularArtistFromID(){
         axios.get("http://localhost:5164/GetterSpotify/SearchArtistsFromId?q=" + query.value
         ,{withCredentials : true}
          ).then((response) => {
-            console.log(response.data)
+            response = JSON.parse(response.data.response)
+            console.log(response)
         }).catch((error)=>{
               console.log(error)
             })

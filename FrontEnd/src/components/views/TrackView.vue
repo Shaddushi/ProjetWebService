@@ -24,6 +24,7 @@ function GetSongsByName(){
             response = JSON.parse(response.data.response)
             tracks.value = response.tracks.items;
             offset.value += tracks.value.length;
+            console.log(tracks.value)
             if (tracks.value.length == 0){
                 alert("No albums found");
             }

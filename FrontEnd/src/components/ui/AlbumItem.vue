@@ -53,7 +53,8 @@ watch(width, (newWidth) => {
 
 <template>
     <div class="albumItem">
-        <img @click="changePage('album/' + props.album.id)" :src="props.album.images[0].url" class="albumImage"/>
+        <img v-if="props.album.images.length > 0" @click="changePage('album/' + props.album.id)" :src="props.album.images[0].url" class="albumImage"/>
+        <img v-else @click="changePage('album/' + props.album.id)" src="../../../assets/img/defaultpic.png" class="albumImage"/>
         <div class="albumInfo">
             <div @click="changePage('album/' + props.album.id)" class="albumName">{{ props.album.name.substring(0, maxchars)}}
                 <span v-if="props.album.name.length > maxchars">...</span>
