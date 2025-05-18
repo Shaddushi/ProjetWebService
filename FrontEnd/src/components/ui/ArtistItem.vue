@@ -106,6 +106,7 @@ div{
 .artistName {
     font-size: 16px;
     font-weight: bold;
+    margin-top: 10px;
 }
 
 

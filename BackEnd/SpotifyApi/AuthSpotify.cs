@@ -23,7 +23,7 @@ public class AuthSpotify : IAuthSpotify {
     // Renvoie vers la page de connexion spotify
     public string GetAuthorizationUrl()
     {
-        string scope = "user-read-private user-read-email";
+        string scope = "user-read-private user-read-email user-read-currently-playing";
         return $"https://accounts.spotify.com/authorize?client_id={_clientID}&response_type=code&redirect_uri={_redirectUri}&scope={scope}";
     }
 

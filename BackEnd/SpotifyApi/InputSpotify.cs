@@ -95,7 +95,7 @@ public class InputSpotify : IInputSpotify{
 
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
 
-        return await _httpClient.GetAsync($"https://api.spotify.com/v1/me/player/currently-playing&scope=user-read-currently-playing").Result.Content.ReadAsStringAsync();
+        return await _httpClient.GetAsync($"https://api.spotify.com/v1/me/player/currently-playing").Result.Content.ReadAsStringAsync();
         
     }
 

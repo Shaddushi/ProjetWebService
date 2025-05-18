@@ -18,6 +18,15 @@ onMounted(() => {
     if(props.profileData.images.length > 0){
         images.value = props.profileData.images[0].url;
     }
+    axios.get("http://localhost:5164/GetterSpotify/GetCurrentlyPlayingSong",
+        {withCredentials : true}
+         ).then((response) => {
+            response = JSON.parse(response.data.response)
+            console.log(response)
+        }).catch((error)=>{
+              console.log(error)
+            })
+    
 });
 
 </script>

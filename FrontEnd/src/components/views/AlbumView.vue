@@ -12,17 +12,8 @@ const offset = ref(0);
 
 // get the albums from the API from a search
 function GetAlbumsByName(){
-    axios.get("http://localhost:5164/GetterSpotify/GetCurrentlyPlayingSong",
-        {withCredentials : true}
-         ).then((response) => {
-            console.log(response)
-        }).catch((error)=>{
-              console.log(error)
-            })
-    if(search.value == ""){
-        alert("Please enter a search term.");
-    }
-    else{
+    
+    
         axios.get("http://localhost:5164/GetterSpotify/SearchAlbums?q=" + search.value + "/&offset=" + 0,
         {withCredentials : true}
          ).then((response) => {
@@ -35,7 +26,7 @@ function GetAlbumsByName(){
         }).catch((error)=>{
               console.log(error)
             })
-    }
+    
     }
     
 

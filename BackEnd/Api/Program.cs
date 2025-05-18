@@ -5,6 +5,10 @@ using Core.Services;
 using Core.SpotifyApi.IAuthSpotify;
 using Core.SpotifyApi.IInputSpotify;
 using SpotifyApi.InputSpotify;
+using Microsoft.AspNetCore.DataProtection.Repositories;
+using Repositories.Context;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +23,8 @@ builder.Services.AddScoped<IAuthSpotify,AuthSpotify>();
 builder.Services.AddScoped<IInputSpotify,InputSpotify>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
+builder.Services.AddDbContext<CommentifyContext>(options =>
+    options.UseSqlite("Data Source=../Repositories/DataBase/spotifyapp.db"));
 
    //  Cors
 builder.Services.AddCors(
