@@ -7,43 +7,57 @@ using SpotifyApi.InputSpotify;
 public class GetterSpotify : IGetterSpotify
 {
     private readonly IInputSpotify _inputspotify;
-    
-    public GetterSpotify(IAuthSpotify s, IInputSpotify i){
+
+    public GetterSpotify(IAuthSpotify s, IInputSpotify i)
+    {
         _inputspotify = i;
     }
 
-    async public Task<String> GetTracks(string q, string offset){
+    async public Task<String> GetTracks(string q, string offset)
+    {
         var response = await _inputspotify.GetTracksResponse(q, offset);
         return response;
     }
 
-    async public Task<String> SearchSongsFromId(string q){
+    async public Task<String> SearchSongsFromId(string q)
+    {
         var response = await _inputspotify.GetTracksIdResponse(q);
         return response;
     }
 
-    async public Task<String> GetAlbums(string q, string offset){
+    async public Task<String> GetAlbums(string q, string offset)
+    {
         var response = await _inputspotify.GetAlbumsResponse(q, offset);
         return response;
     }
 
-    async public Task<String> SearchAlbumsFromId(string q){
+    async public Task<String> SearchAlbumsFromId(string q)
+    {
         var response = await _inputspotify.GetAlbumsIdResponse(q);
         return response;
     }
 
-    async public Task<String> GetArtists(string q, string offset){
+    async public Task<String> GetArtists(string q, string offset)
+    {
         var response = await _inputspotify.GetArtistsResponse(q, offset);
         return response;
     }
 
-    async public Task<String> SearchArtistsFromId(string q){
+    async public Task<String> SearchArtistsFromId(string q)
+    {
         var response = await _inputspotify.GetArtistsIdResponse(q);
         return response;
     }
 
-    async public Task<String> GetCurrentSong(){
+    async public Task<String> GetCurrentSong()
+    {
         var response = await _inputspotify.GetCurrentSongResponse();
+        return response;
+    }
+    
+    async public Task<String> GetUserProfileById(string id)
+    {
+        var response = await _inputspotify.GetUserProfileByIdResponse(id);
         return response;
     }
     

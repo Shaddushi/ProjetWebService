@@ -7,7 +7,7 @@ import router from './router';
 axios.interceptors.response.use(
   response => response,
   async error => {
-    if (error.response && error.response.status === 500) {
+    if (error.response && error.response.status === 501) {
       window.alert("session expired, reloading page");
       ConnectUserToSpotify();
       return Promise.reject(error);

@@ -4,20 +4,25 @@ import { ref } from 'vue';
 import {useRoute} from "vue-router";
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import CommentItem from '../ui/CommentItem.vue';
 const query = ref();
 const track = ref();
 const router = useRouter();
+var comments = [];
+const commentary = ref("");
+
 
 //get the ID from the URL
 onMounted(() => {
     const route = useRoute();
     query.value = route.params.id;
     getSingularSongFromID()
+    getAllCommentaryFromCurrentSong()
 });
 
 //get the song from the API using the ID
-function getSingularSongFromID(){
-        axios.get("http://localhost:5164/GetterSpotify/SearchSongsFromId?q=" + query.value
+async function getSingularSongFromID(){
+        await axios.get("http://localhost:5164/GetterSpotify/SearchSongsFromId?q=" + query.value
         ,{withCredentials : true}
          ).then((response) => {
             response = JSON.parse(response.data.response)
@@ -26,6 +31,36 @@ function getSingularSongFromID(){
               console.log(error)
             })
     }
+
+
+function getAllCommentaryFromCurrentSong(){
+    axios.get("http://localhost:5164/Commentary/GetCommentaries?q=" + query.value
+    ,{withCredentials : true}
+     ).then((response) => {
+        console.log(response)
+        comments = response.data
+    }).catch((error)=>{
+          console.log(error)
+        })
+}
+
+function addCommentary(){
+    if (commentary.value == ""){
+        alert("Please enter a commentary.");
+    }
+    else{
+        axios.post("http://localhost:5164/Commentary/PostCommentaries",{
+            comment: commentary.value,
+            songId: track.id,
+            CommenterId: localStorage.getItem("user_id")
+        },{withCredentials : true}
+         ).then((response) => {
+            getAllCommentaryFromCurrentSong()
+        }).catch((error)=>{
+              console.log(error)
+            })
+    }
+}
 
 // Function to change the page
 const changePage = (path) => {
@@ -65,7 +100,17 @@ const changePage = (path) => {
     </div>
 
     <div id="singularCommentariesContainer" v-if="track">
-        <!-- Attendre que robin fait le back pour afficher les commentaires -->
+        <div id="singularCommentariesTitle" class="Font">Commentaries</div>
+        <div id="singularCommentariesInput">
+            <input type="text" placeholder="Write a commentary..." id="singularCommentariesInputField" v-model="commentary" @keyup.enter="addCommentary()">
+            <button id="singularCommentariesButton" @click="addCommentary()">Send</button>
+        </div>
+        
+        <div id="singularCommentariesList">
+            <div v-for="comment in comments">
+                <CommentItem :comment="comment"/>
+            </div>
+        </div>
     </div>
 
 </template>

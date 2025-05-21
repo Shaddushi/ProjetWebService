@@ -25,6 +25,7 @@ onMounted(() => {
               if(response.data.images.length > 0){
                 images.value = response.data.images[0].url;
               }
+              localStorage.setItem("user_id", profileData.value.id);
             }
             }).catch((error)=>{ console.log(error)})
 

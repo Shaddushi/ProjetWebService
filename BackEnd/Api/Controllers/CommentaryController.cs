@@ -10,7 +10,8 @@ public class CommentaryController : ControllerBase
 
     private readonly ICommentary _icommentary;
 
-    public CommentaryController(ICommentary c){
+    public CommentaryController(ICommentary c)
+    {
         _icommentary = c;
     }
 
@@ -20,4 +21,13 @@ public class CommentaryController : ControllerBase
         var Commentaries = _icommentary.GetCommentaries(q);
         return Ok(Commentaries);
     }
+
+    [HttpPost("¨PostCommentaries")]
+    public IActionResult PostCommentaries([FromQuery] string comment, [FromQuery] string songId, [FromQuery] string CommenterId)
+    {
+
+        var Commentaries = _icommentary.PostCommentaries(comment, songId, CommenterId);
+        return Ok(Commentaries);
+    }
+    
 }

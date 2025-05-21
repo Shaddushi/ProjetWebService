@@ -7,4 +7,10 @@ public class Commentary : ICommentary
     {
         return "";
     }
+
+
+    public string PostCommentaries(string comment, string songId, string CommenterId)
+    {
+        return "";
+    }
 }

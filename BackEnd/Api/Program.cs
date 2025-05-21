@@ -8,6 +8,8 @@ using SpotifyApi.InputSpotify;
 using Microsoft.AspNetCore.DataProtection.Repositories;
 using Repositories.Context;
 using Microsoft.EntityFrameworkCore;
+using Core.Services.ICommentary;
+using Business.Commentary;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +22,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IConnectSpotify,ConnectSpotify>();
 builder.Services.AddScoped<IGetterSpotify,GetterSpotify>();
 builder.Services.AddScoped<IAuthSpotify,AuthSpotify>();
-builder.Services.AddScoped<IInputSpotify,InputSpotify>();
+builder.Services.AddScoped<IInputSpotify, InputSpotify>();
+builder.Services.AddScoped<ICommentary, Commentary>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<CommentifyContext>(options =>
