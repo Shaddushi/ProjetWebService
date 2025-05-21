@@ -14,18 +14,17 @@ onMounted(() => {
             console.log(response.data)
 
             if(response.data == ""){
-              
               ConnectUserToSpotify()
-              
-
             }
             else{
               profileData.value = response.data;
               display_name.value = response.data.display_name;
+              localStorage.setItem("user_img", "../assets/img/defaultpic.png");
+              localStorage.setItem("user_id", profileData.value.id);
               if(response.data.images.length > 0){
                 images.value = response.data.images[0].url;
+                localStorage.setItem("user_img", profileData.value.images[0].url);
               }
-              localStorage.setItem("user_id", profileData.value.id);
             }
             }).catch((error)=>{ console.log(error)})
 

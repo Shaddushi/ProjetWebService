@@ -11,12 +11,13 @@ const router = useRouter();
 var comments = [];
 var recommendedTracks = [];
 const commentary = ref("");
-
+const img = ref();
 
 //get the ID from the URL
 onMounted(() => {
     const route = useRoute();
     query.value = route.params.id;
+    img.value = localStorage.getItem("user_img");
     getSingularSongFromID()
     getAllCommentaryFromCurrentSong()
     GetRecommendedSongs()
@@ -46,6 +47,7 @@ function getAllCommentaryFromCurrentSong(){
 }
 
 function addCommentary(){
+    console.log(commentary.value)
     if (commentary.value == ""){
         alert("Please enter a commentary.");
     }
@@ -108,12 +110,16 @@ const changePage = (path) => {
     t'facon personne va voir ce comment donc je vais me plaindre ici -->
 
     <div id="singularCommentariesContainer" v-if="track">
-        <div id="singularCommentariesTitle" class="Font">Commentaries</div>
-        <div id="singularCommentariesInput">
-            <input type="text" placeholder="Write a commentary..." id="singularCommentariesInputField" v-model="commentary" @keyup.enter="addCommentary()">
-            <button id="singularCommentariesButton" @click="addCommentary()">Send</button>
-        </div>
+        <div id="singularCommentariesTitle" class="Font">Comment Section</div>
+        <div id="singularCommentariesUserImage" v-if="img">
+            <img :src="img" id="singularCommentariesUserImage"/>
+            <div>
+                <textarea type="text" placeholder="Write a commentary..." id="singularCommentariesInputField" v-model="commentary"></textarea>
+                <button id="singularCommentariesButton" @click="addCommentary()">Send</button>
+            </div>
         
+        </div>
+    
         <div id="singularCommentariesList">
             <div v-for="comment in comments">
                 <CommentItem :comment="comment"/>
@@ -126,6 +132,9 @@ const changePage = (path) => {
 
 
 <style scoped>
+
+
+/* Track style */
 
 #singularContainer{
     display: flex;
@@ -201,7 +210,7 @@ const changePage = (path) => {
 }
 
 
-#singularRecommandedContainer, #singularCommentariesContainer{
+#singularCommentariesContainer{
     display: flex;
     flex-direction: column;
     margin-left: 5vw;
@@ -209,11 +218,11 @@ const changePage = (path) => {
 
 }
 
-#singularRecommandedTitle, #singularCommentariesTitle{
+ #singularCommentariesTitle{
     font-weight: bold;
     color: var(--Quinary-color);
     font-size: 2vw;
-    text-decoration: underline;
+
 }
 
 
@@ -229,4 +238,73 @@ const changePage = (path) => {
     cursor: pointer;
 }
 
+
+/* Commentaries Section */
+
+textarea {
+  outline: none; 
+  border: none; 
+}
+
+#singularCommentariesUserImage{
+    display: flex;
+    flex-direction: row;
+   
+}
+
+#singularCommentariesUserImage img{
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+    margin-left: 1vw;
+    margin-top: 2.5vw;
+    aspect-ratio: 1 / 1;
+}
+
+#singularCommentariesUserImage div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 5vw;
+}
+
+#singularCommentariesInputField{
+    display: flex;
+    flex-direction: row;
+    margin-left: 1.5vw;
+    margin-top: 2vw;
+    width: 50vw;
+    height: 5vw;
+    background-color: var(--Quaternary-color);
+    resize: none;
+    border-radius: 10px;
+    padding: 10px;
+    color: var(--Quinary-color);
+    font-size: 1vw;
+    font-family: 'Font', sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: var(--Quinary-color) var(--Primary-color);
+}
+
+#singularCommentariesInputField::placeholder{
+    color: var(--Quinary-color);
+    font-size: 1vw;
+    font-family: 'Font', sans-serif;
+}
+
+#singularCommentariesButton{
+    background-color: var(--Secondary-color);
+    color: var(--Primary-color);
+    border: none;
+    width: 100%;
+    font-size: 1vw;
+    font-family: 'Font', sans-serif;
+    margin-left: 1vw;
+    width: 5vw;
+    height: 1.4vw;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 0.5vw;
+    
+}
 </style>
