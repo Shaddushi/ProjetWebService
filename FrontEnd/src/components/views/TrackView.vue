@@ -20,7 +20,7 @@ function GetSongsByName(){
         axios.get("http://localhost:5164/GetterSpotify/SearchSongs?q=" + search.value + "/&offset=" + 0
         ,{withCredentials : true}
          ).then((response) => {
-            
+            console.log(response.data)
             response = JSON.parse(response.data.response)
             tracks.value = response.tracks.items;
             offset.value += tracks.value.length;

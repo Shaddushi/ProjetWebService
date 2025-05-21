@@ -9,6 +9,7 @@ const query = ref();
 const track = ref();
 const router = useRouter();
 var comments = [];
+var recommendedTracks = [];
 const commentary = ref("");
 
 
@@ -18,6 +19,7 @@ onMounted(() => {
     query.value = route.params.id;
     getSingularSongFromID()
     getAllCommentaryFromCurrentSong()
+    GetRecommendedSongs()
 });
 
 //get the song from the API using the ID
@@ -37,7 +39,6 @@ function getAllCommentaryFromCurrentSong(){
     axios.get("http://localhost:5164/Commentary/GetCommentaries?q=" + query.value
     ,{withCredentials : true}
      ).then((response) => {
-        console.log(response)
         comments = response.data
     }).catch((error)=>{
           console.log(error)
@@ -54,12 +55,23 @@ function addCommentary(){
             songId: track.id,
             CommenterId: localStorage.getItem("user_id")
         },{withCredentials : true}
-         ).then((response) => {
+         ).then(() => {
             getAllCommentaryFromCurrentSong()
         }).catch((error)=>{
               console.log(error)
             })
     }
+}
+
+function GetRecommendedSongs(){
+    axios.get("http://localhost:5164/GetterSpotify/SimilarSongs?seedId=" + query.value
+    ,{withCredentials : true}
+     ).then((response) => {
+        console.log(response)
+        recommendedTracks = response;
+    }).catch((error)=>{
+          console.log(error)
+        })
 }
 
 // Function to change the page
@@ -92,12 +104,8 @@ const changePage = (path) => {
             </div>
         </div>
     </div>
-    <div id="singularRecommandedContainer" v-if="track">
-        <div id="singularRecommandedTitle" class="Font">Similar Songs</div>
-        <div id="singularRecommandedList">
-        <!-- Attendre que robin fait le back pour afficher les titres similaires -->
-        </div>
-    </div>
+    <!-- De base il était sensé avoir les recommandations mais spotify a deprecated ce endpoint j'ai le seum
+    t'facon personne va voir ce comment donc je vais me plaindre ici -->
 
     <div id="singularCommentariesContainer" v-if="track">
         <div id="singularCommentariesTitle" class="Font">Commentaries</div>
@@ -193,7 +201,7 @@ const changePage = (path) => {
 }
 
 
-#singularRecommandedContainer{
+#singularRecommandedContainer, #singularCommentariesContainer{
     display: flex;
     flex-direction: column;
     margin-left: 5vw;
@@ -201,7 +209,7 @@ const changePage = (path) => {
 
 }
 
-#singularRecommandedTitle{
+#singularRecommandedTitle, #singularCommentariesTitle{
     font-weight: bold;
     color: var(--Quinary-color);
     font-size: 2vw;

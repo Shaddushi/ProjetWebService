@@ -59,6 +59,16 @@ const changePage = (path) => {
         </div>
     </div>
 
+    <div id="singularTrackHolder">
+        <div id="singularTrackTitle">Tracks</div>
+        <div id="singularTrackList">
+            <div v-for="(track,i) in album.tracks.items" class="singularTrack" @click="changePage('/track/' + track.id)">
+                <div class="singularTrackName">{{ track.name }}</div>
+            </div>
+        </div>
+    </div>
+    
+
 </template>
 
 

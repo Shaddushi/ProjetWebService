@@ -2,10 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Core.Services;
 using Newtonsoft.Json;
 using Entities.SpotifyEntities.UserProfile;
-using Api.Models.SpotifyResponse;
 using System.Threading.Tasks;
-
-namespace Api.Controllers;
+using Api.Models.SpotifyResponse;
+namespace Api.Controllers.GetterSpotify;
 
 
 [ApiController]
@@ -75,4 +74,9 @@ public class GetterSpotify : ControllerBase
 
         return Ok(new SpotifyResponseModel{Response = CurrentSong});
     }
+
+  
+
+        
+
 }

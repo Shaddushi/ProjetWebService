@@ -106,7 +106,7 @@ public class InputSpotify : IInputSpotify
         return await _httpClient.GetAsync($"https://api.spotify.com/v1/me/player/currently-playing").Result.Content.ReadAsStringAsync();
 
     }
-    
+
     async public Task<String> GetUserProfileByIdResponse(string id)
     {
 
@@ -118,5 +118,7 @@ public class InputSpotify : IInputSpotify
         return await _httpClient.GetAsync($"https://api.spotify.com/v1/users/{id}").Result.Content.ReadAsStringAsync();
 
     }
+    
+ 
 
 }

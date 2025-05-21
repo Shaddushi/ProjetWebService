@@ -54,11 +54,12 @@ public class GetterSpotify : IGetterSpotify
         var response = await _inputspotify.GetCurrentSongResponse();
         return response;
     }
-    
+
     async public Task<String> GetUserProfileById(string id)
     {
         var response = await _inputspotify.GetUserProfileByIdResponse(id);
         return response;
     }
     
+  
 }
