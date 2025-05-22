@@ -86,7 +86,7 @@ const changePage = (path) => {
 
 <template>
     <div id="singularContainer" v-if="track">
-        <div>  
+        <div id="singularImageHolder">  
             <img :src="track.album.images[0].url" id="singularImage"/>
         </div>
     
@@ -162,6 +162,9 @@ const changePage = (path) => {
     margin-left: 2vw;
     margin-top: 4.5vw;
     color: var(--Secondary-color);
+    width: 60vw;
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
 
 #singularAlbum{
@@ -171,7 +174,9 @@ const changePage = (path) => {
     margin-left: 2vw;
     margin-top: 1vw;
     color: var(--Quinary-color);
-    width: max-content;
+    width: 60vw;
+    overflow: hidden; 
+    text-overflow: ellipsis;
     text-align: left;
 }
 
@@ -215,6 +220,7 @@ const changePage = (path) => {
     flex-direction: column;
     margin-left: 5vw;
     margin-top: 4vw;
+    margin-bottom: 5vw;
 
 }
 
@@ -249,15 +255,14 @@ textarea {
 #singularCommentariesUserImage{
     display: flex;
     flex-direction: row;
-   
+    align-items: center;
 }
 
 #singularCommentariesUserImage img{
     width: 5vw;
-    height: 5vw;
+    height: 5.5vw;
     border-radius: 50%;
     margin-left: 1vw;
-    margin-top: 2.5vw;
     aspect-ratio: 1 / 1;
 }
 
@@ -265,7 +270,6 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-bottom: 5vw;
 }
 
 #singularCommentariesInputField{
@@ -287,7 +291,6 @@ textarea {
 }
 
 #singularCommentariesInputField::placeholder{
-    color: var(--Quinary-color);
     font-size: 1vw;
     font-family: 'Font', sans-serif;
 }
@@ -307,4 +310,52 @@ textarea {
     margin-top: 0.5vw;
     
 }
+
+@media screen and (max-width: 1000px) {
+    #singularContainer{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #singularImageHolder{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    #singularImage{
+        width: 50vw;
+        height: 50vw;
+        border-radius: 10px;
+    }
+
+    #singularInfo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+    }
+    
+    #singularCommentariesUserImage{
+        width: 100vw;
+
+    }
+
+    #singularCommentariesInputField{
+        width: 80vw;
+    }
+
+    #singularCommentariesButton{
+        height: 3vw;
+        width: 7vw;
+        margin-top: 1vw;
+        font-size: 1.3vw;
+    }
+    
+}
+
+
+
+
 </style>

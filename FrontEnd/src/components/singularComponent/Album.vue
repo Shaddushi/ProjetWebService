@@ -113,11 +113,14 @@ const changePage = (path) => {
 #singularTitle{
     background: none;
     border: none;
+    width: 60vw;
     font-size: 4vw;
     font-weight: bold;
     margin-left: 2vw;
     margin-top: 2.5vw;
     color: var(--Secondary-color);
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
 
 
@@ -176,7 +179,7 @@ const changePage = (path) => {
     display: flex;
     flex-direction: row;
     margin-top: 2vw;
-    overflow-x: scroll;
+    overflow: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--Quinary-color) var(--Tertiary-color);
     margin-bottom: 5vw;
@@ -195,6 +198,7 @@ const changePage = (path) => {
     cursor: pointer;
     width: 10vw;
     height: 13vw;
+    
 }
 
 
@@ -207,6 +211,8 @@ const changePage = (path) => {
 .singularTrackTitle{
     font-size: 0.8vw;
     text-align: center;
+    overflow: hidden; 
+    text-overflow: ellipsis;
     color: var(--Quinary-color);
 }
 
