@@ -2,8 +2,8 @@ namespace Core.Services.ICommentary;
 
 public interface ICommentary
 {
-    public string GetCommentaries(string q);
+    public Task<List<Entities.Bdd.Commentaries.Commentary>> GetCommentaries(string q);
 
 
-    public string PostCommentaries(string comment, string songId, string CommenterId);
+    public void PostCommentaries(string comment, string songId, string CommenterId);
 }

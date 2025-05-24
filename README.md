@@ -25,8 +25,9 @@ Il suffit de :
 - Aller dans le dossier Backend/Api, ouvrir un autre terminal et taper la commande dotnet run
 - Ensuite, vous pouvez profiter de notre projet (qui mérite un 20) en allant sur le lien qui est donné dans le terminal du FrontEnd. 
 
-Normalement le projet est lancable aussi bien sur Windows que Linux car on est des boss
+Normalement le projet est lançable aussi bien sur Windows que Linux car on est des boss
 On a un swagger d'ailleurs, NORMALEMENT, c'est http://localhost:5164/swagger/index.html
+Mais bon il est pas très utile car un général faut s'être connecté pour l'utiliser et on peut pas faire ca dans un swagger me semble
 
 
 # Que faire ensuite ?

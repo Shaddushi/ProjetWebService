@@ -10,6 +10,7 @@ using Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 using Core.Services.ICommentary;
 using Business.Commentary;
+using Core.Repositories.ICommentaryDataBaseAccess;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,8 @@ builder.Services.AddScoped<IGetterSpotify,GetterSpotify>();
 builder.Services.AddScoped<IAuthSpotify,AuthSpotify>();
 builder.Services.AddScoped<IInputSpotify, InputSpotify>();
 builder.Services.AddScoped<ICommentary, Commentary>();
+builder.Services.AddScoped<ICommentaryDataBaseAccess, CommentaryDataBaseAccess>();
+builder.Services.AddScoped<CommentifyContext, CommentifyContext>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<CommentifyContext>(options =>
@@ -59,9 +62,10 @@ if (app.Environment.IsDevelopment())
     
 }
 
+app.UseRouting();
 
-app.UseSession();
 app.UseCors("AllowedOrigins");
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

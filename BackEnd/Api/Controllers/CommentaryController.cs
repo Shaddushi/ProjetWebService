@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Core.Services.ICommentary;
-namespace Api.Controllers.ConnectSpotify;
+using Entities.SpotifyEntities.UserProfile;
+using System.Text.Json;
+using Api.Models.RequestModel;
+namespace Api.Controllers.Commentary;
 
 
 [ApiController]
@@ -10,9 +13,11 @@ public class CommentaryController : ControllerBase
 
     private readonly ICommentary _icommentary;
 
-    public CommentaryController(ICommentary c)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    public CommentaryController(ICommentary c, IHttpContextAccessor a)
     {
         _icommentary = c;
+        _httpContextAccessor = a;
     }
 
     [HttpGet("GetCommentaries")]
@@ -22,12 +27,24 @@ public class CommentaryController : ControllerBase
         return Ok(Commentaries);
     }
 
-    [HttpPost("¨PostCommentaries")]
-    public IActionResult PostCommentaries([FromQuery] string comment, [FromQuery] string songId, [FromQuery] string CommenterId)
+    [HttpPost("PostCommentaries")]
+    public IActionResult PostCommentaries([FromBody] RequestModel requestModel)
     {
+        var comment = requestModel.comment;
+        var songId = requestModel.songId;
+        var profileJson = _httpContextAccessor.HttpContext?.Session.GetString("Profile");
+        
+        // Si l'utilisateur n'est pas connecté
+        if (string.IsNullOrEmpty(profileJson))
+        {
+            return BadRequest(profileJson);
+        }
 
-        var Commentaries = _icommentary.PostCommentaries(comment, songId, CommenterId);
-        return Ok(Commentaries);
-    }
-    
+        // Deserialize le JSON pour obtenir l'ID de l'utilisateur
+        using var document = JsonDocument.Parse(profileJson);
+        string id = document.RootElement.GetProperty("Id").GetString();
+        _icommentary.PostCommentaries(comment, songId, id);
+        return Ok("Comment posted successfully");
+
+    }   
 }

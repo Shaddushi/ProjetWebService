@@ -20,7 +20,7 @@ onMounted(() => {
     img.value = localStorage.getItem("user_img");
     getSingularSongFromID()
     getAllCommentaryFromCurrentSong()
-    GetRecommendedSongs()
+
 });
 
 //get the song from the API using the ID
@@ -28,6 +28,7 @@ async function getSingularSongFromID(){
         await axios.get("http://localhost:5164/GetterSpotify/SearchSongsFromId?q=" + query.value
         ,{withCredentials : true}
          ).then((response) => {
+            console.log(response)
             response = JSON.parse(response.data.response)
             track.value = response;
         }).catch((error)=>{
@@ -37,10 +38,15 @@ async function getSingularSongFromID(){
 
 
 function getAllCommentaryFromCurrentSong(){
+    console.log("Getting all commentaries for song with ID: " + query.value)
     axios.get("http://localhost:5164/Commentary/GetCommentaries?q=" + query.value
     ,{withCredentials : true}
      ).then((response) => {
-        comments = response.data
+        console.log(response)
+        if(response.data.response != ""){
+            comments = response.data.result;
+        }
+
     }).catch((error)=>{
           console.log(error)
         })
@@ -52,28 +58,17 @@ function addCommentary(){
         alert("Please enter a commentary.");
     }
     else{
-        axios.post("http://localhost:5164/Commentary/PostCommentaries",{
-            comment: commentary.value,
-            songId: track.id,
-            CommenterId: localStorage.getItem("user_id")
-        },{withCredentials : true}
+        axios.post("http://localhost:5164/Commentary/PostCommentaries", {
+            "comment": commentary.value,
+            "songId": query.value
+        }
+        ,{withCredentials : true}
          ).then(() => {
             getAllCommentaryFromCurrentSong()
         }).catch((error)=>{
               console.log(error)
             })
     }
-}
-
-function GetRecommendedSongs(){
-    axios.get("http://localhost:5164/GetterSpotify/SimilarSongs?seedId=" + query.value
-    ,{withCredentials : true}
-     ).then((response) => {
-        console.log(response)
-        recommendedTracks = response;
-    }).catch((error)=>{
-          console.log(error)
-        })
 }
 
 // Function to change the page
@@ -120,7 +115,7 @@ const changePage = (path) => {
         
         </div>
     
-        <div id="singularCommentariesList">
+        <div id="singularCommentariesList" v-if="comments">
             <div v-for="comment in comments">
                 <CommentItem :comment="comment"/>
             </div>
@@ -277,7 +272,7 @@ textarea {
     flex-direction: row;
     margin-left: 1.5vw;
     margin-top: 2vw;
-    width: 50vw;
+    width: 65vw;
     height: 5vw;
     background-color: var(--Quaternary-color);
     resize: none;
@@ -336,7 +331,39 @@ textarea {
         align-items: center;
         margin-left: 0;
     }
+
+    #singularTitle{
+        font-size: 5vw;
+        margin-left: 0;
+        margin-top: 2vw;
+        width: 80vw;
+        text-align: center;
+    }
+
+    #singularAlbum{
+        font-size: 2.5vw;
+        margin-left: 0;
+        margin-top: 1vw;
+        width: 80vw;
+        text-align: center;
+    }
+
+    #singularSpotify{
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.5%;
+        width: 5vw;
+        height: 5vw;
+        margin-left: 0;
+    }
     
+    #singularArtistHolder{
+        display: flex;
+        align-items: center;
+        margin-left: 0;
+        margin-top: 1vw;
+    }
+
     #singularCommentariesUserImage{
         width: 100vw;
 
