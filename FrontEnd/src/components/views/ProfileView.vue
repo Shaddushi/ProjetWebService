@@ -24,7 +24,6 @@ onMounted(() => {
          ).then((response) => {
             if(response.data != null){  
                 response = JSON.parse(response.data.response)
-                console.log(response)
                 currentPlayingSong.value = response;
             }
         }).catch((error)=>{

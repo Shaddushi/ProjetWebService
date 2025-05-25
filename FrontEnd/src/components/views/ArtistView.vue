@@ -21,7 +21,6 @@ function GetArtistsByName(){
             response = JSON.parse(response.data.response)
             artists.value = response.artists.items;
             offset.value += artists.value.length;
-            console.log(response.artists.items);
         }).catch((error)=>{
               console.log(error)
             })

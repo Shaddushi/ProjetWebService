@@ -35,7 +35,6 @@ onMounted(() => {
     } else {
         maxchars.value = 10;
     }
-    console.log(props.artist)
 });
 
 watch(width, (newWidth) => {

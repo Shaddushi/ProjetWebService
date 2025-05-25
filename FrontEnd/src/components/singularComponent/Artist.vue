@@ -24,7 +24,6 @@ function getSingularArtistFromID(){
          ).then((response) => {
             response = JSON.parse(response.data.response)
             artist.value = response
-            console.log(response)
         }).catch((error)=>{
               console.log(error)
             })

@@ -5,11 +5,12 @@ import {useRoute} from "vue-router";
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import CommentItem from '../ui/CommentItem.vue';
+import { defineEmits } from 'vue';
 const query = ref();
 const track = ref();
 const router = useRouter();
-var comments = [];
-var recommendedTracks = [];
+const comments = ref([]);
+const current_id = ref("");
 const commentary = ref("");
 const img = ref();
 
@@ -20,7 +21,7 @@ onMounted(() => {
     img.value = localStorage.getItem("user_img");
     getSingularSongFromID()
     getAllCommentaryFromCurrentSong()
-
+    getCurrentProfileId()
 });
 
 //get the song from the API using the ID
@@ -28,7 +29,6 @@ async function getSingularSongFromID(){
         await axios.get("http://localhost:5164/GetterSpotify/SearchSongsFromId?q=" + query.value
         ,{withCredentials : true}
          ).then((response) => {
-            console.log(response)
             response = JSON.parse(response.data.response)
             track.value = response;
         }).catch((error)=>{
@@ -38,13 +38,11 @@ async function getSingularSongFromID(){
 
 
 function getAllCommentaryFromCurrentSong(){
-    console.log("Getting all commentaries for song with ID: " + query.value)
     axios.get("http://localhost:5164/Commentary/GetCommentaries?q=" + query.value
     ,{withCredentials : true}
      ).then((response) => {
-        console.log(response)
         if(response.data.response != ""){
-            comments = response.data.result;
+            comments.value = response.data.result;
         }
 
     }).catch((error)=>{
@@ -64,6 +62,7 @@ function addCommentary(){
         }
         ,{withCredentials : true}
          ).then(() => {
+            commentary.value = "";
             getAllCommentaryFromCurrentSong()
         }).catch((error)=>{
               console.log(error)
@@ -71,10 +70,53 @@ function addCommentary(){
     }
 }
 
+function getCurrentProfileId(){
+    axios.get("http://localhost:5164/ConnectSpotify/IsConnected",{withCredentials : true}).then((response) => {
+        if(response.data != ""){
+            current_id.value = response.data.id;
+        }
+        else{
+            return "";
+        }
+    }).catch((error)=>{
+        console.log(error)
+    })
+}
+
+
 // Function to change the page
 const changePage = (path) => {
     router.push(path);
 };
+
+
+// Functions to delete a comment or update it
+
+function deleteComment(comment) {
+    axios.delete("http://localhost:5164/Commentary/DeleteCommentaries", 
+        {data: comment}
+    ).then(() => {
+        getAllCommentaryFromCurrentSong();
+    }).catch((error) => {
+        console.log(error);
+    });
+}
+
+function updateComment(comment) {
+    if (comment.text == ""){
+        deleteComment(comment);
+    }
+    else{
+        axios.put("http://localhost:5164/Commentary/UpdateCommentaries", comment).then(() => {
+            getAllCommentaryFromCurrentSong();
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+}
+
+
     
 </script>
 
@@ -115,9 +157,9 @@ const changePage = (path) => {
         
         </div>
     
-        <div id="singularCommentariesList" v-if="comments">
-            <div v-for="comment in comments">
-                <CommentItem :comment="comment"/>
+        <div id="singularCommentariesList" >
+            <div v-for="comment in comments" :key="comment.id">
+                <CommentItem :comment="comment" :current_id="current_id" @delete-comment="deleteComment" @update-comment="updateComment"/>
             </div>
         </div>
     </div>

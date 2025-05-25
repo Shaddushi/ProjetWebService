@@ -6,5 +6,5 @@ public interface ICommentaryDataBaseAccess
     Task<List<Commentary>> GetAllCommentariesAsyncFromSongId(string id);
     Task<bool> AddCommentaryAsync(Commentary commentary);
     Task<bool> UpdateCommentaryAsync(Commentary commentary);
-    Task<bool> DeleteCommentaryAsync(int id);
+    Task<bool> DeleteCommentaryAsync(Commentary commentary);
 }

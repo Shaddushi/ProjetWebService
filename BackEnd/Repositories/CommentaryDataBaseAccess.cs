@@ -5,7 +5,7 @@ public class CommentaryDataBaseAccess : ICommentaryDataBaseAccess
 {
 
     private readonly CommentifyContext _context;
-    
+
     public CommentaryDataBaseAccess(CommentifyContext context)
     {
         _context = context;
@@ -14,15 +14,22 @@ public class CommentaryDataBaseAccess : ICommentaryDataBaseAccess
     public async Task<bool> AddCommentaryAsync(Commentary commentary)
     {
 
-         _context.Commentaries.Add(commentary);
+        _context.Commentaries.Add(commentary);
         var result = await _context.SaveChangesAsync();
         return result > 0;
 
     }
 
-    public Task<bool> DeleteCommentaryAsync(int id)
+    public async Task<bool> DeleteCommentaryAsync(Commentary commentary)
     {
-        throw new NotImplementedException();
+        if (commentary == null)
+        {
+            return await Task.FromResult(false);
+        }
+
+        _context.Commentaries.Remove(commentary);
+        var result = _context.SaveChanges();
+        return await Task.FromResult(result > 0);
     }
 
     public Task<List<Commentary>> GetAllCommentariesAsyncFromSongId(string id)
@@ -33,6 +40,14 @@ public class CommentaryDataBaseAccess : ICommentaryDataBaseAccess
 
     public Task<bool> UpdateCommentaryAsync(Commentary commentary)
     {
-        throw new NotImplementedException();
+        if (commentary == null)
+        {
+            return Task.FromResult(false);
+        }
+
+        _context.Commentaries.Update(commentary);
+        var result = _context.SaveChanges();
+        return Task.FromResult(result > 0);
     }
+    
 }

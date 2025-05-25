@@ -19,14 +19,24 @@ public class Commentary : ICommentary
     }
 
 
-    public async void PostCommentaries(string comment, string songId, string CommenterId)
+    public async Task<bool> PostCommentaries(string comment, string songId, string CommenterId)
     {
-        await _commentaryDataBaseAccess.AddCommentaryAsync(new Entities.Bdd.Commentaries.Commentary
+        return await _commentaryDataBaseAccess.AddCommentaryAsync(new Entities.Bdd.Commentaries.Commentary
         {
             Text = comment,
             SongId = songId,
             AuthorId = CommenterId,
             Date = DateTime.Now
         });
+    }
+
+    public async Task<bool> DeleteCommentaries(Entities.Bdd.Commentaries.Commentary comment)
+    {
+        return await _commentaryDataBaseAccess.DeleteCommentaryAsync(comment);
+    }
+
+    public async Task<bool> UpdateCommentaries(Entities.Bdd.Commentaries.Commentary comment)
+    {
+        return await _commentaryDataBaseAccess.UpdateCommentaryAsync(comment);
     }
 }
