@@ -18,6 +18,8 @@ public interface IGetterSpotify
     public Task<String> GetCurrentSong();
 
     public Task<String> GetUserProfileById(string id);
+
+    public Task<String> GetArtistTopTracks(string id);
    
     
 }

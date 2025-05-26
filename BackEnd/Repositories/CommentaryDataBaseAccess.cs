@@ -49,5 +49,11 @@ public class CommentaryDataBaseAccess : ICommentaryDataBaseAccess
         var result = _context.SaveChanges();
         return Task.FromResult(result > 0);
     }
+
+    public Task<List<Commentary>> GetCommentariesFromAuthorId(string id)
+    {
+        var filtered = _context.Commentaries.Where(c => c.AuthorId == id).OrderByDescending(c => c.Date);
+        return Task.FromResult(filtered.ToList());
+    }
     
 }

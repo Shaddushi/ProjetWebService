@@ -4,8 +4,9 @@ using Entities.SpotifyEntities.UserProfile;
 using System.Text.Json;
 using Api.Models.RequestModel;
 using Newtonsoft.Json;
+using Entities.Bdd.Commentaries;
 
-namespace Api.Controllers.Commentary;
+namespace Api.Controllers.CommentaryBusiness;
 
 
 [ApiController]
@@ -46,25 +47,32 @@ public class CommentaryController : ControllerBase
         using var document = JsonDocument.Parse(profileJson);
         string id = document.RootElement.GetProperty("Id").GetString();
         var result = _icommentary.PostCommentaries(comment, songId, id);
-        
-        return Ok(result);
+
+        return Ok(result.Result ? "Commentary posted successfully." : "Failed to post commentary.");
 
     }
 
     [HttpDelete("DeleteCommentaries")]
-    public IActionResult DeleteCommentaries([FromBody] Entities.Bdd.Commentaries.Commentary data)
+    public IActionResult DeleteCommentaries([FromBody] Commentary data)
     {
 
-        _icommentary.DeleteCommentaries(data);
+        var result = _icommentary.DeleteCommentaries(data);
 
-        return Ok("Comment deleted successfully");
+        return Ok(result.Result ? "Comment deleted successfully" : "Failed to delete comment");
     }
 
     [HttpPut("UpdateCommentaries")]
-    public IActionResult UpdateCommentaries([FromBody] Entities.Bdd.Commentaries.Commentary data)
+    public IActionResult UpdateCommentaries([FromBody] Commentary data)
     {
-        _icommentary.UpdateCommentaries(data);
+        var result = _icommentary.UpdateCommentaries(data);
 
-        return Ok("Comment updated successfully");
+        return Ok(result.Result ? "Commentary updated successfully." : "Failed to update commentary.");
+    }
+
+    [HttpGet("GetCommentariesFromAuthorId")]
+    public IActionResult GetCommentariesFromAuthorId([FromQuery] string authorId)
+    {
+        var commentaries = _icommentary.GetCommentariesFromAuthor(authorId);
+        return Ok(commentaries);
     }
 }

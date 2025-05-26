@@ -11,8 +11,6 @@ const profileData = ref({});
 
 onMounted(() => {
   axios.get("http://localhost:5164/ConnectSpotify/IsConnected",{withCredentials : true}).then((response) => {
-            console.log(response.data)
-
             if(response.data == ""){
               ConnectUserToSpotify()
             }

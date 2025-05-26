@@ -1,19 +1,20 @@
-namespace Business.Commentary;
+namespace Business.CommentaryBusiness;
 
+using Entities.Bdd.Commentaries;
 using System.Threading.Tasks;
 using Core.Repositories.ICommentaryDataBaseAccess;
 using Core.Services.ICommentary;
-public class Commentary : ICommentary
+public class CommentaryBusiness : ICommentary
 {
 
     private readonly ICommentaryDataBaseAccess _commentaryDataBaseAccess;
 
-    public Commentary(ICommentaryDataBaseAccess commentaryDataBaseAccess)
+    public CommentaryBusiness(ICommentaryDataBaseAccess commentaryDataBaseAccess)
     {
         _commentaryDataBaseAccess = commentaryDataBaseAccess;
     }
 
-    public async Task<List<Entities.Bdd.Commentaries.Commentary>> GetCommentaries(string q)
+    public async Task<List<Commentary>> GetCommentaries(string q)
     {
         return await _commentaryDataBaseAccess.GetAllCommentariesAsyncFromSongId(q);
     }
@@ -30,13 +31,19 @@ public class Commentary : ICommentary
         });
     }
 
-    public async Task<bool> DeleteCommentaries(Entities.Bdd.Commentaries.Commentary comment)
+    public async Task<bool> DeleteCommentaries(Commentary comment)
     {
         return await _commentaryDataBaseAccess.DeleteCommentaryAsync(comment);
     }
 
-    public async Task<bool> UpdateCommentaries(Entities.Bdd.Commentaries.Commentary comment)
+    public async Task<bool> UpdateCommentaries(Commentary comment)
     {
         return await _commentaryDataBaseAccess.UpdateCommentaryAsync(comment);
+    }
+
+    public async Task<List<Commentary>> GetCommentariesFromAuthor(string id)
+    {
+        var allCommentaries = await _commentaryDataBaseAccess.GetCommentariesFromAuthorId(id);
+        return allCommentaries.Where(c => c.AuthorId == id).ToList();
     }
 }

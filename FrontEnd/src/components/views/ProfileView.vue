@@ -4,9 +4,13 @@ import { onMounted } from 'vue';
 import { ref } from 'vue';
 import axios from 'axios';
 import { countries } from 'country-flag-icons'
+import CommentItem from '../ui/CommentItem.vue';
+import CommentSongItem from '../ui/CommentSongItem.vue';
+import CurrentPlayingSongItem from '../ui/CurrentPlayingSongItem.vue';
+
 const images = ref("../assets/img/defaultpic.png");
 const currentPlayingSong = ref();
-
+const comments = ref([]);
 const props = defineProps({
         profileData: {
             Object
@@ -15,14 +19,14 @@ const props = defineProps({
 
 
 // get the profile pic if it exists else use the default one set above
-onMounted(() => {
+onMounted(async () => {
     if(props.profileData.images.length > 0){
         images.value = props.profileData.images[0].url;
     }
-    axios.get("http://localhost:5164/GetterSpotify/GetCurrentlyPlayingSong",
+    await axios.get("http://localhost:5164/GetterSpotify/GetCurrentlyPlayingSong",
         {withCredentials : true}
          ).then((response) => {
-            if(response.data != null){  
+            if(response.data.response != null && response.data.response != ""){  
                 response = JSON.parse(response.data.response)
                 currentPlayingSong.value = response;
             }
@@ -30,7 +34,54 @@ onMounted(() => {
               console.log(error)
             })
     
+    getCurrentUserComments();
 });
+
+
+async function getCurrentUserComments(){
+    await axios.get("http://localhost:5164/Commentary/GetCommentariesFromAuthorId?authorId=" + props.profileData.id,
+        {withCredentials : true}
+         ).then((response) => {
+            if(response.data.result != null){
+                response = response.data.result;
+                comments.value = response;
+            }
+            
+        }).catch((error)=>{
+              console.log(error)
+            })
+}
+
+
+// FUnction to update or delete a comment
+
+
+
+function deleteComment(comment) {
+    axios.delete("http://localhost:5164/Commentary/DeleteCommentaries", 
+        {data: comment}
+    ).then(() => {
+        getCurrentUserComments();
+    }).catch((error) => {
+        console.log(error);
+    });
+}
+
+function updateComment(comment) {
+    if (comment.text == ""){
+        deleteComment(comment);
+    }
+    else{
+        axios.put("http://localhost:5164/Commentary/UpdateCommentaries", comment).then(() => {
+            getCurrentUserComments();
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+}
+
+
 
 </script>
 
@@ -43,7 +94,7 @@ onMounted(() => {
 
                 <div id="profileHeaderContent">
                     <div id="profileHeaderRow">     
-                        <div id="profileName">   {{ props.profileData.display_name }} ·</div>
+                        <div id="profileName">   {{ props.profileData.display_name}} </div>
                         <div id="profileCountry">
                             <img :src="`../../../node_modules/country-flag-icons/3x2/${props.profileData.country}.svg`" :alt="`flag-${props.profileData.country}`">
                         </div> 
@@ -57,81 +108,32 @@ onMounted(() => {
                 
                 
                 <div id="profileCurrentSongContainer" v-if="currentPlayingSong && currentPlayingSong.currently_playing_type == 'track'">
-                    <div id="profileCurrentSong">
-                        <div id="profileCurrentSongImg" class="profileContent">
-                            <img :src="currentPlayingSong.item.album.images[0].url" id="profileCurrentSongImg"/>
-                        </div>
-                        <div id="profileCurrentSongInfo" class="profileContent">
-                            <div id="profileCurrentSongTitle" class="profileSongContent">{{ currentPlayingSong.item.name }}</div>
-                            <div id="profileCurrentSongAlbum" class="profileSongContent">{{ currentPlayingSong.item.album.name }}</div>
-                            <div id="profileCurrentSongArtist" class="profileSongContent">Artist: {{ currentPlayingSong.item.artists[0].name }}</div>
-                        </div>
-                    </div>
-
+                    <CurrentPlayingSongItem :currentPlayingSong="currentPlayingSong" />
                 </div>
                 
             </div>  
         </div>
-    </div>
 
+        
+    </div>
+    <div id="profileCommentary">
+            <div id="profileCommentaryTitle">Your Comments</div>
+            <div class="profileCommentaryContent">
+                <div v-for="(comment, index) in comments" :key="index" class="profileCommentaryItem">
+                    <CommentItem :comment="comment" :current_id="props.profileData.id" :is_profile=true @delete-comment="deleteComment" @update-comment="updateComment"  />
+                    <CommentSongItem :song_id="comment.songId"/>
+                </div>
+            </div>
+
+        </div>
 
 </template>
 
 
 <style scoped>
 
-#profileCurrentSongTitle{
-    font-size: 2vw;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-    color: var(--Secondary-color);
-    font-family: 'Font', sans-serif;
-}
 
-#profileCurrentSongImg{
-    aspect-ratio: 1 / 1;
-    width: 10vw;
-    height: 10vw;
-    border-radius: 20px;    
-    object-fit: cover;  
-    margin: 2%;
-}
 
-#profileCurrentSongContainer{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: flex-end;
-    justify-content: center;
-    width: 80%;
-    
-}
-
-#profileCurrentSong{
-    display: flex;
-    flex-direction: row;
-    width: 30vw;
-    height: 15vw;
-    background-color: var(--Quaternary-color);
-    border-radius: 20px;
-    padding: 10px;
-    align-self: center;
-    margin-right: 8vw;
-    border: 2px solid var(--Primary-color);
-
-}
-
-#profileCurrentSongInfoAndProfile{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-#profileCurrentSongInfo{
-    display: flex;
-    flex-direction: column;
-    margin-left: 2vw;
-}
 
 #profileView{
     display: flex;
@@ -220,6 +222,52 @@ onMounted(() => {
     height: 3vw;
 }
 
+#profileCurrentSongInfoAndProfile{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+
+#profileCurrentSongContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: center;
+    width: 80%;
+    
+}
+
+#profileCommentary{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    
+}
+
+#profileCommentaryTitle{
+    font-size: 2vw;
+    margin-top: 1vw;
+    margin-left: 3vw;
+    color: var(--Quinary-color);
+    font-family: 'Font', sans-serif;
+}
+
+.profileCommentaryItem{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.profileCommentaryContent{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 3vw;
+}
+
 @media screen and (max-width: 768px) {
     #profileImage{
         width: 20vw;
@@ -245,6 +293,10 @@ onMounted(() => {
         width: 5vw;
         height: 5vw;
     }
+
+
 }
+
+
 
 </style>

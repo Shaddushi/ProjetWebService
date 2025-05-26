@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.DataProtection.Repositories;
 using Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 using Core.Services.ICommentary;
-using Business.Commentary;
+using Business.CommentaryBusiness;
+using Core.Repositories.ILikeDataBaseAccess;
+using Business.LikeBusiness;
 using Core.Repositories.ICommentaryDataBaseAccess;
 
 
@@ -24,9 +26,10 @@ builder.Services.AddScoped<IConnectSpotify,ConnectSpotify>();
 builder.Services.AddScoped<IGetterSpotify,GetterSpotify>();
 builder.Services.AddScoped<IAuthSpotify,AuthSpotify>();
 builder.Services.AddScoped<IInputSpotify, InputSpotify>();
-builder.Services.AddScoped<ICommentary, Commentary>();
+builder.Services.AddScoped<ICommentary, CommentaryBusiness>();
 builder.Services.AddScoped<ICommentaryDataBaseAccess, CommentaryDataBaseAccess>();
 builder.Services.AddScoped<CommentifyContext, CommentifyContext>();
+builder.Services.AddScoped<ILikeDataBaseAccess, LikeDataBaseAccess>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<CommentifyContext>(options =>

@@ -1,18 +1,23 @@
 # ProjetWebService
 
+# Info Randoms
 
 On a duoqueue (coder à 2 sur ma session)  la semaine du 11 mai et 18 mai 
+Aussi si au démarrage du projet et que vous arrivez sur le projet et que vous ne voyez pas votre profil comme il le faut, juste reloader c'est que le back s'était pas bien encore démarrer.
+
+On a aussi ajouté sur la partie profil un truc pour voir la musique que vous écoutez actuellement
+(c'est joli)
 
 # Technologie utilisé 
 
-Nous avons utilisé vue.js en front et dotnet en back
+Nous avons utilisé vue.js en front et .NET 9 en back
 
 J'vous donne pas le git ici, car bon si vous voyez ca vous êtes déjà dessus...
 
 # Expérience Générale
 
 En vrai on s'est bien amusé, on a tout les deux bien aimé le dotnet (le vue on l'a vue (ahah) au premier semestre donc rien de vraiment nouveau mais c'est toujours cool de travailler avec cette framework) et franchement pour faire des API c'est niquel, tant que l'on range bien tout bien sur, et personnellement (Honoré) j'aimerai bien en faire plus tard en entreprise.
-
+De plus, on pense que si on aurait eu plus de temps, on aurait pu encore plus l'amélioré mais bon c'est déjà plutôt propre on trouve.
 
 # Comment lancer notre projet 
 
@@ -27,7 +32,7 @@ Il suffit de :
 
 Normalement le projet est lançable aussi bien sur Windows que Linux car on est des boss
 On a un swagger d'ailleurs, NORMALEMENT, c'est http://localhost:5164/swagger/index.html
-Mais bon il est pas très utile car un général faut s'être connecté pour l'utiliser et on peut pas faire ca dans un swagger me semble
+Mais bon il est pas très utile car en général faut s'être connecté pour l'utiliser et on peut pas faire ca dans un swagger me semble
 
 
 # Que faire ensuite ?
@@ -40,4 +45,6 @@ Je vous invite bien sûr à tester le site comme vous le souhaitez !
 
 
 
-## Les routes API
+# Les routes API
+
+

@@ -85,6 +85,13 @@ public class GetterSpotify : ControllerBase
 
     }
 
+    [HttpGet("ArtistTopTracks")]
+    public async Task<IActionResult> GetArtistTopTracks([FromQuery] string id)
+    {
+        var TopTracks = await _igetterspotify.GetArtistTopTracks(id);
+        return Ok(new SpotifyResponseModel { Response = TopTracks });
+    }
+
 
 
 

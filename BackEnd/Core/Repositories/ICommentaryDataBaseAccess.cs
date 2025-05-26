@@ -7,4 +7,6 @@ public interface ICommentaryDataBaseAccess
     Task<bool> AddCommentaryAsync(Commentary commentary);
     Task<bool> UpdateCommentaryAsync(Commentary commentary);
     Task<bool> DeleteCommentaryAsync(Commentary commentary);
+
+    Task<List<Commentary>> GetCommentariesFromAuthorId(string id);
 }

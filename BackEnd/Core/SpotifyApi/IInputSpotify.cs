@@ -11,5 +11,7 @@ public interface IInputSpotify
     public Task<String> GetArtistsIdResponse(string id);
     public Task<String> GetCurrentSongResponse();
     public Task<String> GetUserProfileByIdResponse(string id);
+
+    public Task<String> GetArtistTopTracksResponse(string id);
     
 }

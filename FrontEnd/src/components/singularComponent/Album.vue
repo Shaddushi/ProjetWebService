@@ -141,6 +141,9 @@ const changePage = (path) => {
     margin-bottom: 1vw;
 }
 
+
+
+
 .singularArtist{
     background: none;
     border: none;
@@ -268,6 +271,12 @@ const changePage = (path) => {
         align-items: center;
         margin-left: 0;
     }
+
+    #singularTitle{
+        font-size: 5vw;
+        text-align: center;
+        margin-left: 0;
+    }
 }
 
 
@@ -277,6 +286,7 @@ const changePage = (path) => {
         display: flex;
         flex-wrap: wrap;
         overflow-x: hidden;
+        justify-content: center;
     }
 
     #singularTracksTitle{

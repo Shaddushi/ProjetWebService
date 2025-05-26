@@ -61,5 +61,10 @@ public class GetterSpotify : IGetterSpotify
         return response;
     }
     
+    async public Task<String> GetArtistTopTracks(string id)
+    {
+        var response = await _inputspotify.GetArtistTopTracksResponse(id);
+        return response;
+    }
   
 }

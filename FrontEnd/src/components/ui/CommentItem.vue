@@ -22,6 +22,10 @@ const props = defineProps({
     current_id: {
         type: String,
         required: true
+    },
+    is_profile: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -34,8 +38,8 @@ onMounted(() => {
 
 
 //Get the profile of the author of the comment
-function getAuthorFromComment(comment) {
-    axios.get("http://localhost:5164/GetterSpotify/GetUserProfileById?id=" + comment.authorId, { withCredentials: true })
+async function getAuthorFromComment(comment) {
+    await axios.get("http://localhost:5164/GetterSpotify/GetUserProfileById?id=" + comment.authorId, { withCredentials: true })
         .then((response) => {
             response = JSON.parse(response.data.response);
             Author.value = response;
@@ -55,7 +59,6 @@ function getAuthorFromComment(comment) {
 // Part for editing a comment 
 
 const is_editing = ref(false);
-const edited_comment = ref("");
 const textarea = ref(null);
 
 
@@ -77,15 +80,13 @@ function autoResize() {
     textarea.value.style.height = `${textarea.value.scrollHeight}px`; 
 }
 
-
-
 </script>
 
 <template>
 
-    <div class="singularCommentary">
+    <div class="singularCommentary" :class="{singularCommentaryIsProfile: props.is_profile, }" v-if="Author && Author.display_name">
         <img :src="img" class="singularCommentaryImage" />
-        <div class="singularCommentaryText">
+        <div class="singularCommentaryText" :class="{singularCommentaryTextIsProfile: props.is_profile, }">
             <div class="singularCommentaryUserDateHolder">
                 <div class="singularCommentaryUser">{{ Author.display_name }}</div>
                 <div class="singularCommentaryDeleteDateHolder">
@@ -101,8 +102,8 @@ function autoResize() {
                 </div>
                 
             </div>
-            <div v-if="!is_editing" class="singularCommentaryText">{{ comment.text }}</div>
-            <textarea v-if="is_editing" ref="textarea" @input="autoResize"  v-model="comment.text" class="singularCommentaryText" placeholder="Edit your comment..."></textarea>
+            <div v-if="!is_editing" class="singularCommentaryText" :class="{singularCommentaryTextIsProfile: props.is_profile, }" >{{ comment.text }}</div>
+            <textarea v-if="is_editing" ref="textarea" @input="autoResize"  v-model="comment.text" class="singularCommentaryText" :class="{singularCommentaryTextIsProfile: props.is_profile, }" placeholder="Edit your comment..."></textarea>
             <div class="singularCommentaryCommitChangesHolder">
                 <button v-if="is_editing" @click="$emit('update-comment', comment); is_editing = !is_editing" class="singularCommentaryCommitChanges">Save</button>
             </div>
@@ -113,6 +114,8 @@ function autoResize() {
 
 
 <style scoped>
+
+
 
 .singularCommentaryCommitChangesHolder {
     display: flex;
@@ -183,19 +186,35 @@ textarea{
     max-width: 90vw;
     margin-top: 3vw;
 }
-.singularCommentaryUser {
-    font-weight: bold;
-    color: #1DB954;
-    font-size: 1.1vw;
-    margin-bottom: 5px;
-}
+
 .singularCommentaryText {
     margin-left: 10px;
     color: #fff; 
     min-width: 80vw;
     max-width: 80vw;
     font-size: 1vw;
+    word-wrap: break-word;
 }
+
+.singularCommentaryIsProfile{
+    min-width: 70vw;
+    max-width: 70vw;
+}
+
+.singularCommentaryTextIsProfile {
+    min-width: 60vw;
+    max-width: 60vw;
+}
+
+
+.singularCommentaryUser {
+    font-weight: bold;
+    color: #1DB954;
+    font-size: 1.1vw;
+    margin-bottom: 5px;
+}
+
+
 
 .singularCommentaryImage {
     width: 3vw;
@@ -203,6 +222,8 @@ textarea{
     border-radius: 50%;
     aspect-ratio: 1 / 1;
 }
+
+
 
 @media (max-width: 1000px) {
     .singularCommentary {
@@ -216,6 +237,10 @@ textarea{
     .singularCommentaryUser {
         font-size: 3vw;
     }
+    .singularCommentaryText {
+        font-size: 2vw;
+     }
+
 }
 
 

@@ -118,6 +118,18 @@ public class InputSpotify : IInputSpotify
         return await _httpClient.GetAsync($"https://api.spotify.com/v1/users/{id}").Result.Content.ReadAsStringAsync();
 
     }
+
+    async public Task<String> GetArtistTopTracksResponse(string id)
+    {
+
+        var stringToken = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+        var access_token = JsonConvert.DeserializeObject<TokenData>(stringToken);
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", access_token.AccessToken);
+
+        return await _httpClient.GetAsync($"https://api.spotify.com/v1/artists/{id}/top-tracks").Result.Content.ReadAsStringAsync();
+
+    }
     
  
 

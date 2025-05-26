@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import CommentItem from '../ui/CommentItem.vue';
 import { defineEmits } from 'vue';
+import LikeDislikeItem from '../ui/LikeDislikeItem.vue';
 const query = ref();
 const track = ref();
 const router = useRouter();
@@ -136,11 +137,21 @@ function updateComment(comment) {
             </a>
             
             <div id="singularArtistHolder" >
-                <button  @click="changePage('/artist/' + track.artists[i].id)" class="singularArtist" v-for="(artist,i) in track.artists">{{artist.name }} 
-                   <div v-if="i != track.artists.length - 1">,</div>
-                </button>
-                <div id="singularReleaseDate">· {{ track.album.release_date }}</div>
+                <div id="singularArtistRelease">
+                    <button  @click="changePage('/artist/' + track.artists[i].id)" class="singularArtist" v-for="(artist,i) in track.artists">{{artist.name }} 
+                        <div v-if="i != track.artists.length - 1">,</div>
+                    </button>
+                    <div id="singularReleaseDate">· {{ track.album.release_date }}</div>
+
+
+
+
+                </div>
+                
+                <div  class="LikeDislike displayBigLike"> <LikeDislikeItem :song_id="track.id" :current_id="current_id"/> </div>
             </div>
+            <div class="LikeDislike displaySmallLike"> <LikeDislikeItem :song_id="track.id" :current_id="current_id"/> </div>
+            
         </div>
     </div>
     <!-- De base il était sensé avoir les recommandations mais spotify a deprecated ce endpoint j'ai le seum
@@ -169,6 +180,20 @@ function updateComment(comment) {
 
 
 <style scoped>
+
+
+
+
+.LikeDislike{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1vw;
+}
+
+.displaySmallLike{
+    display: none;
+}
+
 
 
 /* Track style */
@@ -228,9 +253,19 @@ function updateComment(comment) {
 #singularArtistHolder{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     margin-left: 2vw;
     margin-top: auto;
     margin-bottom: 1vw;
+    min-width: 50vw;
+    max-width: 50vw;
+}
+
+#singularArtistRelease{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .singularArtist{
@@ -348,6 +383,9 @@ textarea {
     
 }
 
+
+
+
 @media screen and (max-width: 1000px) {
     #singularContainer{
         display: flex;
@@ -402,8 +440,13 @@ textarea {
     #singularArtistHolder{
         display: flex;
         align-items: center;
+        justify-content: space-around;
         margin-left: 0;
         margin-top: 1vw;
+    }
+
+    #singularArtistRelease{
+        display: flex;
     }
 
     #singularCommentariesUserImage{
@@ -420,6 +463,19 @@ textarea {
         width: 7vw;
         margin-top: 1vw;
         font-size: 1.3vw;
+    }
+
+    .displaySmallLike{
+        display: flex;
+    }
+
+    .displayBigLike{
+        display: none;
+    }
+
+    .LikeDislike{
+        margin-left: 0;
+        margin-top: 1vw;
     }
     
 }
