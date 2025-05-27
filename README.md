@@ -164,3 +164,8 @@ Permet d'update un like en repassant l'objet complet (comme pour les coms la bdd
     -> GET GetAllLikesFromSongId
 
 Permet de récupérer sous forme de liste  [ int,int ] le nombre de like et de dislike (première valeur nb de like, deuxième nb de dislike)
+
+# Infos supplémentaires sur les routes API
+
+On sait que nous étions sensé avoir 4 controllers avec DELETE PUT POST GET mais dans le sens que le projet se dirige c'était pas possible comme on en a discuté avec vous en cours.
+
