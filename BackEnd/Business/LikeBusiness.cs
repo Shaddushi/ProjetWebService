@@ -17,10 +17,38 @@ public class LikeBusiness : IlikeBusiness
         _likeDataBaseAccess = likeDataBaseAccess;
     }
 
-    public async Task<SongLikes> PostLikeAsync(string songId, string userId,bool isLiked)
+    public Task<SongLikes> GetLikeFromSongIdWithAuthorIdAsync(string songId,string authorId)
     {
-        return await _likeDataBaseAccess.PostLikeAsync(songId, userId, isLiked);
+        return _likeDataBaseAccess.GetLikeFromSongIdWithAuthorIdAsync(songId, authorId);
     }
 
+    public async Task<bool> PostLikeAsync(string songId, string userId,bool isLiked)
+    {
+        
+        // technically, we could make the SongLikes Object inside the function, but i prefer to create it in the business layer
+        return await _likeDataBaseAccess.PostLikeAsync(new SongLikes
+        {
+            SongId = songId,
+            AuthorId = userId,
+            IsLike = isLiked,
+            Date = DateTime.UtcNow
+        });
+    }
 
+    public Task<bool> DeleteLikeAsync(string songId, string userId)
+    {
+        return _likeDataBaseAccess.DeleteLikeAsync(songId, userId);
+    }
+
+    public Task<List<int>> GetAllLikesFromSongIdAsync(string songId)
+    {
+        return _likeDataBaseAccess.GetAllLikesFromSongIdAsync(songId);
+    }
+
+    
+
+    public Task<bool> UpdateLikeAsync(SongLikes songLikes)
+    {
+        return _likeDataBaseAccess.UpdateLikeAsync(songLikes);
+    }
 }

@@ -69,6 +69,10 @@ public class CommentaryController : ControllerBase
         return Ok(result.Result ? "Commentary updated successfully." : "Failed to update commentary.");
     }
 
+
+
+    // Could have not askd for the authorId in the query, but if latter on we want to create a page
+    // where you can see someoone else's profile, we won't need to change the endpoint
     [HttpGet("GetCommentariesFromAuthorId")]
     public IActionResult GetCommentariesFromAuthorId([FromQuery] string authorId)
     {

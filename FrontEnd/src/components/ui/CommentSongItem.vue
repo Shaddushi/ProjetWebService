@@ -69,6 +69,7 @@ const changePage = (path) => {
     border-radius: 5px;
     object-fit: cover;
     cursor: pointer;
+    border: 1px solid transparent;
 }
 
 #SongName {
@@ -109,7 +110,6 @@ const changePage = (path) => {
 }
 
 #commentSongImage:hover {
-    transform: scale(1.05);
     transition: 0.2s ease-in-out;
     border: 1px solid var(--Secondary-color);
 }

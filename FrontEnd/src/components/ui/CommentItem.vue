@@ -103,7 +103,7 @@ function autoResize() {
                 
             </div>
             <div v-if="!is_editing" class="singularCommentaryText" :class="{singularCommentaryTextIsProfile: props.is_profile, }" >{{ comment.text }}</div>
-            <textarea v-if="is_editing" ref="textarea" @input="autoResize"  v-model="comment.text" class="singularCommentaryText" :class="{singularCommentaryTextIsProfile: props.is_profile, }" placeholder="Edit your comment..."></textarea>
+            <textarea v-if="is_editing" id="textareastyle" ref="textarea" @input="autoResize"  v-model="comment.text" class="singularCommentaryText" :class="{singularCommentaryTextIsProfile: props.is_profile, }" placeholder="Edit your comment..."></textarea>
             <div class="singularCommentaryCommitChangesHolder">
                 <button v-if="is_editing" @click="$emit('update-comment', comment); is_editing = !is_editing" class="singularCommentaryCommitChanges">Save</button>
             </div>
@@ -116,6 +116,10 @@ function autoResize() {
 <style scoped>
 
 
+#textareastyle {
+    background-color: #454545;
+    border-radius: 10px;
+}
 
 .singularCommentaryCommitChangesHolder {
     display: flex;

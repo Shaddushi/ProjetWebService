@@ -13,7 +13,7 @@ using Business.CommentaryBusiness;
 using Core.Repositories.ILikeDataBaseAccess;
 using Business.LikeBusiness;
 using Core.Repositories.ICommentaryDataBaseAccess;
-
+using Core.Services.ILikeBusiness;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +30,10 @@ builder.Services.AddScoped<ICommentary, CommentaryBusiness>();
 builder.Services.AddScoped<ICommentaryDataBaseAccess, CommentaryDataBaseAccess>();
 builder.Services.AddScoped<CommentifyContext, CommentifyContext>();
 builder.Services.AddScoped<ILikeDataBaseAccess, LikeDataBaseAccess>();
+builder.Services.AddScoped<IlikeBusiness, LikeBusiness>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<CommentifyContext>(options =>
     options.UseSqlite("Data Source=../Repositories/DataBase/spotifyapp.db"));
 

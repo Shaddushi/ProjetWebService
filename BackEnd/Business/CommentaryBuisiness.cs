@@ -22,7 +22,9 @@ public class CommentaryBusiness : ICommentary
 
     public async Task<bool> PostCommentaries(string comment, string songId, string CommenterId)
     {
-        return await _commentaryDataBaseAccess.AddCommentaryAsync(new Entities.Bdd.Commentaries.Commentary
+
+        // technically, we could make the Commentary Object inside the function, but i prefer to make it happen in the business layer
+        return await _commentaryDataBaseAccess.PostCommentaryAsync(new Commentary
         {
             Text = comment,
             SongId = songId,

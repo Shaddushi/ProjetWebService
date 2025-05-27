@@ -11,7 +11,7 @@ public class CommentaryDataBaseAccess : ICommentaryDataBaseAccess
         _context = context;
     }
 
-    public async Task<bool> AddCommentaryAsync(Commentary commentary)
+    public async Task<bool> PostCommentaryAsync(Commentary commentary)
     {
 
         _context.Commentaries.Add(commentary);

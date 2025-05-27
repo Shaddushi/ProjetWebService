@@ -12,4 +12,13 @@ public class CommentifyContext : DbContext
     public DbSet<Commentary> Commentaries { get; set; }
 
     public DbSet<SongLikes> SongLikes { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder){
+        base.OnModelCreating(modelBuilder); 
+
+        modelBuilder.Entity<SongLikes>()
+            .HasIndex(like => new { like.AuthorId, like.SongId }) 
+            .IsUnique(); 
+    }
+
 }

@@ -4,7 +4,7 @@ namespace Core.Repositories.ICommentaryDataBaseAccess;
 public interface ICommentaryDataBaseAccess
 {
     Task<List<Commentary>> GetAllCommentariesAsyncFromSongId(string id);
-    Task<bool> AddCommentaryAsync(Commentary commentary);
+    Task<bool> PostCommentaryAsync(Commentary commentary);
     Task<bool> UpdateCommentaryAsync(Commentary commentary);
     Task<bool> DeleteCommentaryAsync(Commentary commentary);
 
