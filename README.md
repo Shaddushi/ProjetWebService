@@ -48,3 +48,119 @@ Je vous invite bien sûr à tester le site comme vous le souhaitez !
 # Les routes API
 
 
+La majorité de nos routes nécessite une connexion donc le swagger fonctionne probablement pas :3
+
+## Commentary
+
+### Controller qui s'occupe de tout ce qui s'approche des commentaires.
+
+
+
+    -> GET GetCommentaries
+
+Permet de récupérer tout les commentaires d'un track
+
+
+    -> POST PostCommentaries
+
+Permet d'ajouter un commentaire en donnant le text du commentaire et l'id de la musique (necessite d'être connecté)
+
+
+    -> DELETE DeleteCommentaries
+
+Permet de supprimer le commentaire de la bdd envoyer dans le body de la requête.
+
+
+    -> PUT UpdateCommentaries
+
+Permet d'update un commentaire de la bdd en le renvoyant updater (dotnet reconnait quel commentaire il s'agit grace a la clé primaire)
+
+    -> GET GetCommentariesFromAuthorId
+
+Permet de récupérer toiut les commentaires fait par un utilisateur en passant son id par query (on a pas fait en sorte que c'est directement le back qui gère l'id car on s'est dit que plus tard (meme si jamais dans le cas présent car pas un vrai projet) on pourrait potentiellement utilisé cette route sans la modifié pour une page d'un autre utilisateur)
+
+
+## ConnectSpotify
+
+
+### Controller qui s'occupe de faire la connexion avec spotify et de récupérer son profil
+
+    -> GET GetSpotifyAuth
+
+Permet a l'utilisateur de se connecter a spotify. Cette route est en lien avec la suivante.
+
+
+    -> GET CallBack
+
+Spotify renvoie sur cette addresse après la connexion avec un code. Nous utilisons ce code pour récupérer un token de Spotify qu'on stock dans le back et ensuite avec ce token le profil qu'on stock dans le back aussi puis renvoie l'utilisateur sur le front.
+
+
+    -> GET IsConnected
+
+Permet de vérifier si l'utilisateur est connecté en checkant en utilisant le cookie. Si l'utilisateur est connecté, renvoie sont profil, sinon renvoie une chaîne vide.
+
+
+## GetterSpotify
+
+### Controller qui s'occupe principalement de faire les appels API vers spotify pour divers choses
+
+    -> GET SearchSongs
+
+Permet de récupérer 50 tracks en passant en query le nom recherché et l'offset (pour récupérer plus tard d'autres tracks)
+
+    -> GET SearchSongsFromId
+
+Permet de récupérer un track en donnant en query son id
+
+    -> GET SearchAlbums
+
+Permet de récupérer 50 albums en passant en query le nom recherché et l'offset (pour récupérer plus tard d'autres albums)
+
+    -> GET SearchAlbumsFromId
+
+Permet de récupérer un album en donnant en query son id
+
+    -> GET SearchArtists
+
+Permet de récupérer 50 artists en passant en query le nom recherché et l'offset (pour récupérer plus tard d'autres artists)
+
+    -> GET SearchArtistsFromId
+
+Permet de récupérer un artist en donnant en query son id
+
+    -> GET GetCurrentlyPlayingSong
+
+Permet de récupérer la musique qui est actuellement écouté par l'utilisateur sur spotify.
+
+    -> GET GetUserProfileById
+
+Permet de récupérer le profil d'un autre utilisateur. On l'utilise ici pour afficher le nom et la pfp d'une personne sur un commentaire qu'elle est fait
+
+    -> GET ArtistTopTracks
+
+Permet de récupérer les meilleurs tracks d'un artist en ayant son id en query
+
+
+## Like
+
+### Controller qui s'occupe de tout ce qui ce rapproche des Likes sur les musiques.
+
+    -> POST PostLike
+
+Permet d'ajouter a la bdd un like en donnant isLike (true si pouce bleu, false si pouce rouge) et l'id du track (l'id de la personne est récupérer dans le back)
+
+    -> GET GetLikeFromSongId
+
+Permet de récupérer si la personne connecté a liké le track dont l'id est passé en query et si oui renvoie l'object complet
+
+    -> DELETE DeleteLike
+
+Permet de supprimer un like en passant dans le body l'id du track a supprimer et le back s'occupe de récupérer l'id de la personne connecté
+
+    -> PUT UpdateLike
+
+Permet d'update un like en repassant l'objet complet (comme pour les coms la bdd sait qui modifié grace a l'id du like)
+
+    -> GET GetAllLikesFromSongId
+
+Permet de récupérer sous forme de liste  [ int,int ] le nombre de like et de dislike (première valeur nb de like, deuxième nb de dislike)

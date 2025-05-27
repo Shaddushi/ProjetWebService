@@ -60,9 +60,10 @@ async function GetLikeStatus() {
         });
 }
 
-
+// Function to like or unlike a song
 async function LikeSong() {
     if (song_like.value != "" && song_like.value.isLike) {
+        // the song has been liked, we need to delete the like
         await axios.delete("http://localhost:5164/Like/DeleteLike",
          {
             data : {
@@ -75,6 +76,7 @@ async function LikeSong() {
         });
     }
     else if (song_like.value != "" && !song_like.value.isLike) {
+        // the song has been disliked, we need to update it to like
         song_like.value.isLike = true;
         await axios.put("http://localhost:5164/Like/UpdateLike", song_like.value , { withCredentials: true }
     ).catch((error) => {
@@ -82,7 +84,7 @@ async function LikeSong() {
         });
     }
     else {
-        // la chanson a déjà été likée / dislikée
+        // the song has not been liked yet
         await axios.post("http://localhost:5164/Like/PostLike", {
         songId: props.song_id,
         isLike: true
@@ -97,8 +99,10 @@ async function LikeSong() {
 }
 
 
+// Function to dislike or undislike a song
 async function DislikeSong() {
     if (song_like.value != "" && !song_like.value.isLike) {
+        // the song has been disliked, we need to delete the dislike
         await axios.delete("http://localhost:5164/Like/DeleteLike",
          {
             data : {
@@ -111,6 +115,7 @@ async function DislikeSong() {
         });
     }
     else if (song_like.value != "" && song_like.value.isLike) {
+        // the song has been liked, we need to update it to dislike
         song_like.value.isLike = false;
         await axios.put("http://localhost:5164/Like/UpdateLike", song_like.value , { withCredentials: true }
     ).catch((error) => {
@@ -118,7 +123,7 @@ async function DislikeSong() {
         });
     }
     else {
-        // la chanson a déjà été likée / dislikée
+        // the song has not been disliked yet
         await axios.post("http://localhost:5164/Like/PostLike", {
         songId: props.song_id,
         isLike: false
@@ -128,7 +133,7 @@ async function DislikeSong() {
         
     }
     GetLikeStatus();
-    // mise a jour dans le front
+    // update in the front
 
 }
 
